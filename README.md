@@ -1,4 +1,4 @@
-# 🎯 Test de Sabotaje de Metas
+# 🎯 Test de avance sostenible
 
 > Herramienta diagnóstica para identificar patrones inconscientes que impiden el cumplimiento de metas año tras año.
 
@@ -23,22 +23,6 @@ Este test diagnóstico ayuda a mujeres profesionales a identificar exactamente q
 - ✅ **Diseño responsive** optimizado para móvil y desktop
 
 ---
-
-## 🎨 Los 9 Patrones de Sabotaje
-
-1. **🎯 La Perfeccionista Paralizada** - Posterga por buscar perfección
-2. **✨ La Dispersa Entusiasta** - Inicia muchas cosas, no completa ninguna
-3. **😔 La Complaciente Agotada** - Metas desde "debería", no desde deseo
-4. **🎭 La Saboteadora Invisible** - Se sabotea cerca del éxito
-5. **⚡ La Dependiente de Motivación** - Solo actúa con inspiración
-6. **💔 La Castigadora Interna** - Diálogo brutal, abandona al primer error
-7. **☁️ La Soñadora Sin Raíces** - Visiones grandes sin pasos concretos
-8. **🔥 La Adicta a lo Urgente** - Solo productiva bajo presión
-9. **⛓️ La Víctima de Circunstancias** - Externaliza responsabilidad
-
----
-
-## 🚀 Demo en vivo
 
 🔗 **[Hacer el Test](https://TU-USUARIO.github.io/test-sabotaje-metas/)**
 
