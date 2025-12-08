@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test de Avance Sostenible - Descubre qué dinámicas internas afectan tu progreso y cómo transformarlas">
+    <title>Test de Avance Sostenible | NeuroWellness Learning</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #F7F4F1;
+            color: #4A4D53;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0.75rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .header-gradient {
+            background: #14233A;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1.5rem 1.5rem 0 0;
+            text-align: center;
+        }
+        
+        .header-gradient h1 {
+            color: white !important;
+        }
+        
+        .header-gradient .subtitle {
+            color: #E9C8C8;
+        }
+
+        .logo-container {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .logo-container img {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .subtitle {
+            color: #E9C8C8;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1, h2 {
+            color: #14233A;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4A4D53;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #14233A;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #E6E2DE;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #9B6D80;
+        }
+
+        .form-group input.error {
+            border-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .question-card {
+            background: white;
+            border: 2px solid #E6E2DE;
+            border-radius: 1rem;
+            padding: 1.25rem 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .question-card:hover {
+            border-color: #9B6D80;
+            box-shadow: 0 4px 12px rgba(155, 109, 128, 0.1);
+        }
+        
+        .question-number {
+            background: #E9C8C8;
+            color: #14233A;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .question-text {
+            color: #14233A;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        
+        .scale-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .scale-option input[type="radio"] {
+            display: none;
+        }
+        
+        .scale-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 4rem;
+            padding: 0.5rem 0.35rem;
+            border: 2px solid #E6E2DE;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            background: white;
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        .scale-option input[type="radio"]:checked + label {
+            background: #9B6D80;
+            border-color: #9B6D80;
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(155, 109, 128, 0.3);
+        }
+        
+        .scale-option label:hover {
+            border-color: #9B6D80;
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: #9B6D80;
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #7d5666;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 109, 128, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-indicator {
+            background: #E6E2DE;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #9B6D80;
+            height: 100%;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .results.active {
+            display: block;
+        }
+        
+        .pattern-result {
+            background: #F7F4F1;
+            border-left: 4px solid #9B6D80;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pattern-name {
+            color: #14233A;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-score {
+            font-size: 1.5rem;
+            color: #9B6D80;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-level {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .dominant {
+            background: #E9C8C8;
+            border-left-color: #9B6D80;
+            border-left-width: 6px;
+        }
+        
+        .progress-bar {
+            background: #E6E2DE;
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill-result {
+            background: #9B6D80;
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .intro-hibrida {
+            background: #FFF9E6;
+            border: 2px solid #FFE082;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro-hibrida h3 {
+            color: #14233A;
+            margin-bottom: 1rem;
+        }
+
+        .intro-hibrida p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 2rem;
+            background: #E9C8C8;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .download-section h3 {
+            color: #14233A;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .scale-container {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.25rem;
+            }
+
+            .scale-option label {
+                font-size: 0.7rem;
+                padding: 0.35rem 0.2rem;
+                min-height: 3.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-gradient">
+                <div class="logo-container">
+                    <!-- Aquí va tu logo -->
+                    <img src="URL_DE_TU_LOGO" alt="NeuroWellness Learning" style="display: none;">
+                    <h1>Test de Avance Sostenible</h1>
+                </div>
+                <p class="subtitle">Descubre qué patrones están frenando tus metas año tras año</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE INICIO -->
+        <div id="start-section">
+            <div class="card">
+                <h2 style="color: #14233A; margin-bottom: 1rem;">Este es tu primer paso hacia la transformación</h2>
+                <p class="welcome-text">
+                    Antes de darte una guía personalizada, necesito entender cómo avanzas tú, dado que no todas nos 
+                    relacionamos igual con nuestras metas. Cómo organizas tu energía, tus prioridades y tus emociones 
+                    influye en la forma en que te acercas —o te alejas— de lo que quieres. Y eso es único en cada persona.
+                </p>
+                <p class="welcome-text">
+                    Este test te permitirá identificar tu patrón personal de funcionamiento, para que la guía que recibas 
+                    no sea genérica, sino realmente ajustada a tu forma de ser y a lo que necesitas hoy.
+                </p>
+                <p class="welcome-text" style="margin-bottom: 0.5rem;">
+                    <strong>Aquí descubrirás:</strong>
+                </p>
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem; line-height: 2;">
+                    <li>Qué dinámicas internas están interrumpiendo tu avance</li>
+                    <li>Por qué aparecen en tu vida (a nivel emocional, cognitivo y neurobiológico)</li>
+                    <li>Qué necesitas tú, de manera particular, para avanzar con menos fricción y más claridad</li>
+                </ul>
+                <p class="welcome-text">
+                    Con ese diagnóstico podré darte recomendaciones personalizadas y un plan que encaje con tu ritmo, 
+                    tu historia y tus recursos actuales.
+                </p>
+                <div style="background: #FFF9E6; border-left: 4px solid #FFE082; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                    <p style="margin: 0; line-height: 1.8;">
+                        <strong>⏱️ Duración aproximada: 10 minutos.</strong><br>
+                        Busca un espacio tranquilo, respira profundo y responde con honestidad. La claridad que obtengas 
+                        aquí será la base de un camino diseñado especialmente para ti.
+                    </p>
+                </div>
+
+                <form id="user-info-form">
+                    <div class="form-group">
+                        <label for="user-name">Tu nombre *</label>
+                        <input type="text" id="user-name" name="name" required placeholder="Escribe tu nombre">
+                        <span class="error-message" id="name-error">Por favor ingresa tu nombre</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-email">Tu email *</label>
+                        <input type="email" id="user-email" name="email" required placeholder="tu@email.com">
+                        <span class="error-message" id="email-error">Por favor ingresa un email válido</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Comenzar Test</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE TEST -->
+        <div id="test-section" style="display: none;">
+            <div class="card">
+                <div class="progress-indicator">
+                    <div class="progress-fill" id="progress-bar"></div>
+                </div>
+                <p style="text-align: center; margin-bottom: 1.5rem; color: #666;">
+                    <span id="progress-text">0 de 45 preguntas respondidas</span>
+                </p>
+            </div>
+
+            <div id="questions-container"></div>
+
+            <div class="card">
+                <button id="submit-btn" class="btn btn-primary" disabled>Ver Mis Resultados</button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE RESULTADOS -->
+        <div id="results-section" class="results">
+            <div class="card">
+                <h2 style="color: #14233A; margin-bottom: 1.5rem;">TUS PATRONES DE SABOTAJE</h2>
+                
+                <div id="intro-hibrida-container"></div>
+                
+                <div id="results-container"></div>
+
+                <!-- SECCIÓN FINAL ESTILO NEUROBIENESTAR -->
+                <div style="max-width: 800px; margin: 3rem auto; text-align: center;">
+                    
+                    <!-- CUADRO OSCURO CON MENSAJE -->
+                    <div style="background: linear-gradient(135deg, #14233A 0%, #1a3a52 100%); color: white; padding: 2.5rem 2rem; border-radius: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <h2 style="color: white; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600;">
+                            Has dado el primer paso más importante: conocer tu mapa
+                        </h2>
+                        
+                        <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; opacity: 0.95;">
+                            Tus resultados son el inicio, no el final.
+                        </p>
+                        
+                        <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; opacity: 0.95;">
+                            Porque tu cerebro funciona mejor cuando tiene dirección.
+                        </p>
+                        
+                        <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; opacity: 0.95;">
+                            Si quieres evitar volver a los mismos ciclos y transformar este insight en un plan real,<br>
+                            escríbeme y vemos juntas si este programa encaja contigo.
+                        </p>
+                        
+                        <!-- BOTONES -->
+                        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: 0 auto;">
+                            <!-- Botón WhatsApp -->
+                            <a href="https://wa.me/34603777334?text=Hola%2C%20hice%20el%20Test%20de%20Avance%20Sostenible%20y%20quiero%20conocer%20m%C3%A1s%20sobre%20NeuroWellness%20Learning" 
+                               target="_blank"
+                               style="background: #9B6D80; color: white; padding: 1.2rem 2rem; border-radius: 0.75rem; text-decoration: none; font-weight: 600; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(155, 109, 128, 0.3);">
+                                <span style="font-size: 1.2rem;">💬</span>
+                                Quiero mi orientación personalizada (WhatsApp)
+                            </a>
+                            
+                            <!-- Botón PDF -->
+                            <button id="download-pdf-btn-final" 
+                                    style="background: #E9C8C8; color: #14233A; padding: 1.2rem 2rem; border-radius: 0.75rem; border: none; font-weight: 600; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(233, 200, 200, 0.3);">
+                                <span style="font-size: 1.2rem;">📄</span>
+                                Descargar mis resultados en PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- BANNER FIRMA -->
+                    <div style="margin: 2rem auto; max-width: 700px;">
+                        <img src="https://i.postimg.cc/L6rj1Mx7/Firma-Neuro-Wellness-Mariale-Urdaneta-(10).png" 
+                             alt="Mariale Urdaneta - NeuroWellness Learning"
+                             style="width: 100%; height: auto; display: block; border-radius: 1rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <!-- CRÉDITOS -->
+                    <div style="text-align: center; margin: 2rem auto; padding: 1.5rem; max-width: 600px;">
+                        <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.5rem;">
+                            © 2025 Maria Alejandra Urdaneta. Todos los derechos reservados.
+                        </p>
+                        <p style="color: #999; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem;">
+                            Este test y su metodología son propiedad intelectual protegida.<br>
+                            Prohibida su reproducción total o parcial sin autorización expresa.
+                        </p>
+                        <p style="color: #888; font-size: 0.8rem; line-height: 1.6;">
+                            Basado en los 4 pilares de NeuroWellness Learning:<br>
+                            <strong>Neuro-Balance</strong> • <strong>Neuro-Focus</strong> • <strong>Neuro-Impulso</strong> • <strong>Neuro-Flow</strong>
+                        </p>
+                    </div>
+                    
+                    <!-- BOTÓN REINICIAR -->
+                    <button onclick="location.reload()" 
+                            style="background: #9B6D80; color: white; padding: 0.9rem 2.5rem; border-radius: 0.75rem; border: none; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(155, 109, 128, 0.2);">
+                        Reiniciar Test
+                    </button>
+                </div>
+                
+                <!-- Botón oculto original para generar PDF -->
+                <button id="download-pdf-btn" style="display: none;"></button>
+                
+                <script>
+                // Conectar el nuevo botón PDF con la función existente (cuando exista)
+                try {
+                    const pdfBtnFinal = document.getElementById('download-pdf-btn-final');
+                    if (pdfBtnFinal) {
+                        pdfBtnFinal.addEventListener('click', function() {
+                            document.getElementById('download-pdf-btn').click();
+                        });
+                    }
+                } catch(e) {
+                    console.log('Botón PDF se conectará cuando se muestren resultados');
+                }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // ==============================================
+        // CONFIGURACIÓN Y DATOS
+        // ==============================================
+
+        const GOOGLE_SCRIPT_URL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUÍ';
+
+        let userName = '';
+        let userEmail = '';
+
+        // Base de datos de preguntas (AJUSTADAS)
+        const preguntas = [
+            // PERFECCIONISTA PARALIZADA
+            { id: 1, patron: 'perfeccionista', tipo: 'suma', texto: 'Postergo empezar proyectos porque siento que necesito tenerlo todo claramente definido y sin errores antes de dar el primer paso' },
+            { id: 2, patron: 'perfeccionista', tipo: 'suma', texto: 'Cuando veo que un proyecto no va a quedar tan bien como lo imaginé, prefiero dejarlo a entregarlo imperfecto' },
+            { id: 3, patron: 'perfeccionista', tipo: 'suma', texto: 'Me paralizo imaginando el juicio negativo de otras personas si mi trabajo no es excelente' },
+            { id: 4, patron: 'perfeccionista', tipo: 'resta', texto: 'Empiezo proyectos aunque no estén perfectos, porque sé que puedo mejorar sobre la marcha' },
+            { id: 5, patron: 'perfeccionista', tipo: 'resta', texto: 'Me siento cómoda con resultados "suficientemente buenos" si cumplen con el propósito principal' },
+            
+            // DISPERSA ENTUSIASTA
+            { id: 6, patron: 'dispersa', tipo: 'suma', texto: 'Inicio múltiples metas al mismo tiempo pero termino sin completar ninguna' },
+            { id: 7, patron: 'dispersa', tipo: 'suma', texto: 'Me emociono intensamente con ideas nuevas y pierdo interés en las metas que ya había empezado' },
+            { id: 8, patron: 'dispersa', tipo: 'suma', texto: 'Cada pocas semanas cambio de meta porque encuentro algo que parece más interesante o prometedor' },
+            { id: 9, patron: 'dispersa', tipo: 'resta', texto: 'Cuando empiezo algo importante, me comprometo a terminarlo aunque aparezcan nuevas oportunidades tentadoras' },
+            { id: 10, patron: 'dispersa', tipo: 'resta', texto: 'Priorizo completar lo que inicié antes de embarcarme en proyectos nuevos' },
+            
+            // COMPLACIENTE AGOTADA
+            { id: 11, patron: 'complaciente', tipo: 'suma', texto: 'Establezco metas porque siento que "debería" cumplirlas, no porque realmente me entusiasmen' },
+            { id: 12, patron: 'complaciente', tipo: 'suma', texto: 'Mis metas están más conectadas con las expectativas de otras personas (familia, pareja, sociedad) que con mis propios deseos' },
+            { id: 13, patron: 'complaciente', tipo: 'suma', texto: 'Siento resentimiento o cansancio cuando trabajo en mis metas, como si fueran una obligación' },
+            { id: 14, patron: 'complaciente', tipo: 'resta', texto: 'Cuando me planteo una meta, siento emoción genuina y conexión profunda con lo que quiero lograr' },
+            { id: 15, patron: 'complaciente', tipo: 'resta', texto: 'Me siento energizada y motivada cuando trabajo en mis metas porque conectan con quien realmente soy' },
+            
+            // SABOTEADORA INVISIBLE
+            { id: 16, patron: 'saboteadora', tipo: 'suma', texto: 'Cuando estoy cerca de lograr algo importante, de repente hago cosas que sabotean mi progreso' },
+            { id: 17, patron: 'saboteadora', tipo: 'suma', texto: 'En el fondo siento que "no merezco" o "no soy la persona" para lograr ciertas cosas' },
+            { id: 18, patron: 'saboteadora', tipo: 'suma', texto: 'Me siento incómoda o ansiosa cuando las cosas van demasiado bien, como si algo malo fuera a pasar' },
+            { id: 19, patron: 'saboteadora', tipo: 'resta', texto: 'Creo genuinamente que merezco alcanzar las metas que me propongo' },
+            { id: 20, patron: 'saboteadora', tipo: 'resta', texto: 'Me siento cómoda celebrando mis logros sin minimizarlos o sentir que "fue suerte"' },
+            
+            // DEPENDIENTE DE MOTIVACIÓN
+            { id: 21, patron: 'dependiente', tipo: 'suma', texto: 'Solo trabajo en mis metas cuando me siento motivada o inspirada' },
+            { id: 22, patron: 'dependiente', tipo: 'suma', texto: 'Cuando pierdo el entusiasmo inicial por algo, dejo de hacerlo aunque sé que es importante' },
+            { id: 23, patron: 'dependiente', tipo: 'suma', texto: 'Creo que necesito sentir motivación antes de poder actuar en mis metas' },
+            { id: 24, patron: 'dependiente', tipo: 'resta', texto: 'Actúo en mis metas incluso cuando no tengo ganas, porque confío en mis sistemas y rutinas' },
+            { id: 25, patron: 'dependiente', tipo: 'resta', texto: 'Entiendo que la motivación viene DESPUÉS de empezar a actuar, no antes' },
+            
+            // CASTIGADORA INTERNA
+            { id: 26, patron: 'castigadora', tipo: 'suma', texto: 'Mi diálogo interno es muy duro y crítico conmigo cuando fallo o cometo errores' },
+            { id: 27, patron: 'castigadora', tipo: 'suma', texto: 'Si tengo un desliz o fallo un día, siento que "ya arruiné todo" y abandono completamente la meta' },
+            { id: 28, patron: 'castigadora', tipo: 'suma', texto: 'Me enfoco más en castigarme por lo que hice mal que en celebrar lo que hice bien' },
+            { id: 29, patron: 'castigadora', tipo: 'resta', texto: 'Cuando cometo un error, lo veo como una oportunidad de aprendizaje sin juzgarme duramente' },
+            { id: 30, patron: 'castigadora', tipo: 'resta', texto: 'Me hablo a mí misma con la misma compasión con la que le hablaría a una amiga que está pasando por algo difícil' },
+            
+            // SOÑADORA SIN RAÍCES
+            { id: 31, patron: 'sonadora', tipo: 'suma', texto: 'Tengo metas muy ambiciosas pero no tengo claridad de los pasos pequeños y concretos para llegar allí' },
+            { id: 32, patron: 'sonadora', tipo: 'suma', texto: 'Mis metas se sienten desconectadas de quien soy ahora o de las fortalezas que ya tengo' },
+            { id: 33, patron: 'sonadora', tipo: 'suma', texto: 'Espero un cambio radical o una transformación mágica en lugar de construir progreso gradual' },
+            { id: 34, patron: 'sonadora', tipo: 'resta', texto: 'Mis metas están construidas sobre mis fortalezas actuales y mi historia personal' },
+            { id: 35, patron: 'sonadora', tipo: 'resta', texto: 'Tengo claridad de los micro-pasos específicos que me llevarán desde donde estoy ahora hasta mi meta' },
+            
+            // ADICTA A LO URGENTE
+            { id: 36, patron: 'adicta', tipo: 'suma', texto: 'Solo logro ser productiva cuando hay presión, crisis o una fecha límite inminente' },
+            { id: 37, patron: 'adicta', tipo: 'suma', texto: 'Dejo que las urgencias del día a día desplacen constantemente el trabajo en mis metas importantes' },
+            { id: 38, patron: 'adicta', tipo: 'suma', texto: 'Vivo en modo reactivo (apagando incendios) en lugar de proactivo (construyendo hacia mis metas)' },
+            { id: 39, patron: 'adicta', tipo: 'resta', texto: 'Dedico tiempo consistente a lo importante aunque no sea urgente' },
+            { id: 40, patron: 'adicta', tipo: 'resta', texto: 'Tengo sistemas que protegen el tiempo para mis metas de las distracciones y urgencias del día' },
+            
+            // VÍCTIMA DE CIRCUNSTANCIAS
+            { id: 41, patron: 'victima', tipo: 'suma', texto: 'Cuando no avanzo en mis metas, tiendo a pensar que es por factores externos que no controlo (tiempo, dinero, otras personas)' },
+            { id: 42, patron: 'victima', tipo: 'suma', texto: 'Cuando enfrento obstáculos, mi primera reacción es encontrar razones de por qué no es posible, en lugar de buscar soluciones' },
+            { id: 43, patron: 'victima', tipo: 'suma', texto: 'Me repito a mí misma "así soy yo" o "no puedo cambiar" cuando enfrento dificultades' },
+            { id: 44, patron: 'victima', tipo: 'resta', texto: 'Asumo responsabilidad por crear soluciones incluso cuando las circunstancias no son ideales' },
+            { id: 45, patron: 'victima', tipo: 'resta', texto: 'Ante obstáculos, mi mentalidad es "¿cómo puedo hacer esto funcionar?" en lugar de "esto no se puede"' }
+        ];
+
+        const patronesInfo = {
+            perfeccionista: { nombre: 'La Perfeccionista Paralizada', emoji: '🎯' },
+            dispersa: { nombre: 'La Dispersa Entusiasta', emoji: '✨' },
+            complaciente: { nombre: 'La Complaciente Agotada', emoji: '😔' },
+            saboteadora: { nombre: 'La Saboteadora Invisible', emoji: '🎭' },
+            dependiente: { nombre: 'La Dependiente de Motivación', emoji: '⚡' },
+            castigadora: { nombre: 'La Castigadora Interna', emoji: '💔' },
+            sonadora: { nombre: 'La Soñadora Sin Raíces', emoji: '☁️' },
+            adicta: { nombre: 'La Adicta a lo Urgente', emoji: '🔥' },
+            victima: { nombre: 'La Víctima de Circunstancias', emoji: '⛓️' }
+        };
+
+        // Mezclar preguntas
+        const preguntasMezcladas = [...preguntas].sort(() => Math.random() - 0.5);
+        
+        // Respuestas del usuario
+        const respuestas = {};
+
+        // ==============================================
+        // FORMULARIO INICIAL
+        // ==============================================
+
+        document.getElementById('user-info-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('user-name');
+            const emailInput = document.getElementById('user-email');
+            
+            let isValid = true;
+            
+            // Validar nombre
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('error');
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            } else {
+                nameInput.classList.remove('error');
+                document.getElementById('name-error').style.display = 'none';
+            }
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                emailInput.classList.add('error');
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            } else {
+                emailInput.classList.remove('error');
+                document.getElementById('email-error').style.display = 'none';
+            }
+            
+            if (isValid) {
+                userName = nameInput.value.trim();
+                userEmail = emailInput.value.trim();
+                
+                document.getElementById('start-section').style.display = 'none';
+                document.getElementById('test-section').style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+        });
+
+        // ==============================================
+        // RENDERIZAR PREGUNTAS
+        // ==============================================
+
+        function renderPreguntas() {
+            const container = document.getElementById('questions-container');
+            
+            preguntasMezcladas.forEach((pregunta, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.innerHTML = `
+                    <div class="question-text">
+                        <div class="question-number">${index + 1}</div>
+                        <div style="flex: 1;">${pregunta.texto}</div>
+                    </div>
+                    <div class="scale-container">
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_1" name="q${pregunta.id}" value="0" required>
+                            <label for="q${pregunta.id}_1">Nunca</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_2" name="q${pregunta.id}" value="1" required>
+                            <label for="q${pregunta.id}_2">Casi nunca</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_3" name="q${pregunta.id}" value="2" required>
+                            <label for="q${pregunta.id}_3">A veces</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_4" name="q${pregunta.id}" value="3" required>
+                            <label for="q${pregunta.id}_4">Frecuentemente</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_5" name="q${pregunta.id}" value="4" required>
+                            <label for="q${pregunta.id}_5">Siempre</label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(questionCard);
+            });
+
+            // Escuchar cambios en las respuestas
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const questionId = parseInt(e.target.name.replace('q', ''));
+                    respuestas[questionId] = parseInt(e.target.value);
+                    updateProgress();
+                    checkAllAnswered();
+                });
+            });
+        }
+
+        // ==============================================
+        // PROGRESO
+        // ==============================================
+
+        function updateProgress() {
+            const total = 45;
+            const answered = Object.keys(respuestas).length;
+            const percentage = (answered / total) * 100;
+            
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = `${answered} de ${total} preguntas respondidas`;
+        }
+
+        function checkAllAnswered() {
+            const allAnswered = Object.keys(respuestas).length === 45;
+            document.getElementById('submit-btn').disabled = !allAnswered;
+        }
+
+        // ==============================================
+        // CALCULAR RESULTADOS
+        // ==============================================
+
+        function calcularResultados() {
+            const puntosPorPatron = {
+                perfeccionista: 0,
+                dispersa: 0,
+                complaciente: 0,
+                saboteadora: 0,
+                dependiente: 0,
+                castigadora: 0,
+                sonadora: 0,
+                adicta: 0,
+                victima: 0
+            };
+
+            preguntas.forEach(pregunta => {
+                const respuesta = respuestas[pregunta.id];
+                let puntos;
+                
+                if (pregunta.tipo === 'suma') {
+                    puntos = respuesta;
+                } else {
+                    puntos = 4 - respuesta;
+                }
+                
+                puntosPorPatron[pregunta.patron] += puntos;
+            });
+
+            return puntosPorPatron;
+        }
+
+        // ==============================================
+        // SISTEMA DE ENSAMBLAJE DE INTROS HÍBRIDAS
+        // ==============================================
+
+        const DESCRIPCIONES_CORTAS = {
+            perfeccionista: "postergas empezar porque necesitas que todo esté perfecto antes de iniciar",
+            dispersa: "te emocionas intensamente con ideas nuevas pero pierdes interés cuando pasa la novedad",
+            complaciente: "estableces metas porque sientes que 'deberías' cumplirlas, más que por deseo auténtico",
+            saboteadora: "cuando estás cerca de lograr algo importante, inconscientemente haces cosas que sabotean tu progreso",
+            dependiente: "solo actúas cuando te sientes motivada o inspirada",
+            castigadora: "tu diálogo interno es muy duro y crítico contigo cuando fallas o cometes errores",
+            sonadora: "tienes metas ambiciosas pero sin claridad de los pasos pequeños y concretos para llegar ahí",
+            adicta: "eres productiva únicamente bajo presión o crisis inminente",
+            victima: "sientes que las circunstancias externas (tiempo, dinero, otras personas) son las que te impiden avanzar"
+        };
+
+        const DINAMICAS = {
+            "adicta-dependiente-dispersa": "ciclo de ráfagas intensas seguidas de colapsos",
+            "castigadora-perfeccionista": "ciclo vicioso de parálisis seguida de auto-castigo brutal",
+            "perfeccionista-saboteadora": "parálisis por miedo al juicio que termina en auto-sabotaje",
+            "complaciente-victima": "resentimiento profundo y externalización de responsabilidad",
+            "dependiente-dispersa": "inicias múltiples cosas cuando hay emoción, abandonas cuando baja la energía",
+            "adicta-dispersa": "ciclo de ráfagas intensas seguidas de colapsos"
+        };
+
+        const CONSECUENCIAS = {
+            "adicta-dependiente-dispersa": "Inicias múltiples proyectos en momentos de alta energía (novedad + urgencia), pero los abandonas cuando desaparece la presión o el entusiasmo inicial. Vives en extremos: todo o nada. Este ciclo te genera frustración acumulada y una sensación constante de no completar lo que empiezas.",
+            "castigadora-perfeccionista": "Te paralizas esperando perfección, y cuando intentas y fallas, te destruyes emocionalmente. El castigo interno refuerza tu miedo a intentar, creando un ciclo de inacción y auto-maltrato.",
+            "perfeccionista-saboteadora": "Cuando estás cerca de lanzar algo, tu perfeccionismo se intensifica como sabotaje inconsciente. Siempre encuentras 'una cosa más que arreglar' porque en el fondo tienes miedo de ser juzgada.",
+            "complaciente-victima": "Cumples expectativas de otras personas mientras sientes que 'no puedes' perseguir lo tuyo por circunstancias. El resentimiento se acumula porque vives la vida de otras sin agencia en la tuya.",
+            "dependiente-dispersa": "Te emocionas con ideas nuevas e inicias con energía explosiva, pero cuando baja la motivación (que siempre baja), abandonas. Acumulas proyectos sin terminar esperando que 'vuelvan las ganas'.",
+            "adicta-dispersa": "Inicias múltiples proyectos en momentos de alta energía y urgencia, pero los abandonas cuando desaparece la presión. Vives en extremos productivos seguidos de colapsos."
+        };
+
+        function generarIntroHibrida(patronesDominantes) {
+            if (patronesDominantes.length === 1) {
+                return null; // No hay intro híbrida para un solo patrón
+            }
+
+            const numPatrones = patronesDominantes.length;
+            const descripciones = patronesDominantes.map(p => DESCRIPCIONES_CORTAS[p]);
+            
+            const dynamicKey = patronesDominantes.sort().join('-');
+            let dinamica = DINAMICAS[dynamicKey] || "un sistema complejo de sabotaje";
+            let consecuencia = CONSECUENCIAS[dynamicKey];
+            
+            if (!consecuencia) {
+                consecuencia = "Esta combinación crea un bloqueo complejo donde cada patrón refuerza al otro, dificultando tu avance en las metas que te importan.";
+            }
+            
+            return `
+                <div class="intro-hibrida">
+                    <h3>Tu Mapa de Avance Personalizado</h3>
+                    <p><strong>Tus ${numPatrones} patrones dominantes crean ${dinamica}:</strong></p>
+                    <p>${descripciones.join(', ')}.</p>
+                    <p><strong>Resultado:</strong> ${consecuencia}</p>
+                </div>
+            `;
+        }
+
+        // ==============================================
+        // MOSTRAR RESULTADOS
+        // ==============================================
+
+        function mostrarResultados() {
+            const resultados = calcularResultados();
+            
+            // Ordenar patrones por puntuación
+            const patronesOrdenados = Object.entries(resultados)
+                .map(([patron, puntos]) => ({
+                    patron,
+                    puntos,
+                    porcentaje: (puntos / 20) * 100,
+                    info: patronesInfo[patron]
+                }))
+                .sort((a, b) => b.puntos - a.puntos);
+
+            // Identificar dominantes (≥10 puntos) - MÁXIMO 3
+            const dominantes = patronesOrdenados
+                .filter(p => p.puntos >= 10)
+                .slice(0, 3); // SOLO los 3 primeros
+
+            // Generar intro híbrida si hay múltiples dominantes
+            const introHibridaContainer = document.getElementById('intro-hibrida-container');
+            if (dominantes.length > 1) {
+                const patronesDominantesNombres = dominantes.map(d => d.patron);
+                const introHTML = generarIntroHibrida(patronesDominantesNombres);
+                if (introHTML) {
+                    introHibridaContainer.innerHTML = introHTML;
+                }
+            }
+
+            const container = document.getElementById('results-container');
+            container.innerHTML = '';
+
+            // Mostrar solo los patrones dominantes
+            if (dominantes.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; background: #FFF9E6; border-radius: 1rem;">
+                        <p style="font-size: 1.1rem; line-height: 1.8;">
+                            Tus resultados muestran que no tienes patrones dominantes marcados (todos están por debajo de 10 puntos). 
+                            Esto podría indicar que tus dificultades para cumplir metas tienen un origen diferente o que respondiste 
+                            con menos intensidad de la que experimentas. Te recomendamos reflexionar más profundamente sobre tus patrones 
+                            o repetir el test siendo más honesta con tus respuestas.
+                        </p>
+                    </div>
+                `;
+            } else {
+                dominantes.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'pattern-result dominant';
+                    
+                    let nivel;
+                    if (item.puntos >= 15) nivel = 'MUY ALTO - Este patrón te está limitando severamente';
+                    else if (item.puntos >= 10) nivel = 'ALTO - Este patrón es significativo en tu vida';
+                    
+                    card.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div style="flex: 1;">
+                                <div class="pattern-name">${item.info.emoji} ${item.info.nombre}</div>
+                                <div class="pattern-score">${item.puntos}/20 puntos (${item.porcentaje.toFixed(0)}%)</div>
+                                <div class="pattern-level">${nivel}</div>
+                            </div>
+                            <div style="background: #9B6D80; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: bold; font-size: 0.9rem;">
+                                PATRÓN DOMINANTE #${index + 1}
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill-result" style="width: ${item.porcentaje}%"></div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: #F7F4F1; border-radius: 0.75rem;">
+                            <h3 style="color: #14233A; margin-bottom: 1rem;">Qué significa este patrón:</h3>
+                            <p style="line-height: 1.8; margin-bottom: 1rem;">
+                                ${obtenerDescripcionPatron(item.patron)}
+                            </p>
+                            
+                            <h3 style="color: #14233A; margin-bottom: 1rem; margin-top: 2rem;">Tu primer paso de transformación:</h3>
+                            <p style="line-height: 1.8; margin-bottom: 1rem;">
+                                ${obtenerPrimerPaso(item.patron)}
+                            </p>
+                            
+                            <div style="background: #FFF9E6; border-left: 4px solid #FFE082; padding: 1rem; border-radius: 0.5rem; margin-top: 1.5rem;">
+                                <p style="margin: 0; font-weight: 600; color: #14233A;">
+                                    Tu guía PDF incluye el camino completo de transformación con los 8 pasos detallados para cada uno de tus patrones dominantes.
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            // Enviar a Google Sheets
+            enviarAGoogleSheets(resultados, dominantes);
+
+            // Mostrar sección de resultados
+            document.getElementById('test-section').style.display = 'none';
+            document.getElementById('results-section').classList.add('active');
+            window.scrollTo(0, 0);
+            
+            // Conectar botón PDF cuando se muestran los resultados
+            setTimeout(function() {
+                const pdfBtnFinal = document.getElementById('download-pdf-btn-final');
+                if (pdfBtnFinal) {
+                    pdfBtnFinal.addEventListener('click', function() {
+                        document.getElementById('download-pdf-btn').click();
+                    });
+                }
+            }, 100);
+        }
+        
+        // Funciones para obtener descripciones
+        function obtenerDescripcionPatron(patron) {
+            const descripciones = {
+                perfeccionista: "Postergas empezar proyectos porque necesitas que todo esté perfecto antes de iniciar. El perfeccionismo no es exigirte excelencia, es usar la perfección como escudo contra el miedo al juicio. En el fondo, equiparas tu valor como persona con la calidad del resultado.",
+                
+                dispersa: "Te emocionas intensamente con ideas nuevas pero pierdes interés cuando pasa la novedad. El problema no es tener muchos intereses, sino confundir inicio con logro. Estás adicta al subidón de dopamina del comienzo, pero no has desarrollado la disciplina para completar.",
+                
+                complaciente: "Estableces metas porque sientes que 'deberías' cumplirlas, más que por deseo auténtico. Has perdido conexión con tus propios deseos y priorizas las expectativas de otras personas sobre las tuyas. El resentimiento acumulado es señal de que estás viviendo la vida de alguien más.",
+                
+                saboteadora: "Cuando estás cerca de lograr algo importante, inconscientemente haces cosas que sabotean tu progreso. Este patrón es el más inconsciente: una parte de ti tiene miedo del éxito porque tu identidad no incluye 'ser exitosa'. El éxito se percibe como amenaza.",
+                
+                dependiente: "Solo actúas cuando te sientes motivada o inspirada. Has condicionado tu acción a un estado emocional específico. El problema no es falta de motivación, es ausencia de sistemas que te sostengan cuando la motivación no está presente.",
+                
+                castigadora: "Tu diálogo interno es muy duro y crítico contigo cuando fallas o cometes errores. Este maltrato interno no te motiva, te paraliza y sabotea. Has equiparado tu valor con tu desempeño, y cuando hay error, tu valor colapsa.",
+                
+                sonadora: "Tienes metas ambiciosas pero sin claridad de los pasos pequeños y concretos para llegar ahí. Tus visiones están flotando sin raíces en tu presente. El problema no es tu capacidad de soñar, es la desconexión entre el sueño y el camino real desde donde estás.",
+                
+                adicta: "Eres productiva únicamente bajo presión o crisis inminente. Tu cerebro está adicto al cóctel de dopamina + adrenalina que viene con la urgencia. Has entrenado tu sistema a funcionar solo en emergencias, y lo importante nunca será urgente hasta que sea demasiado tarde.",
+                
+                victima: "Sientes que las circunstancias externas (tiempo, dinero, otras personas) son las que te impiden avanzar. Has entregado tu poder a factores externos. El problema no es que no tengas recursos, es que has adoptado una mentalidad donde buscas razones de por qué no, en lugar de soluciones para cómo sí."
+            };
+            return descripciones[patron] || "";
+        }
+        
+        function obtenerPrimerPaso(patron) {
+            const pasos = {
+                perfeccionista: "Define 'suficientemente bueno' ANTES de empezar cualquier proyecto. Escribe: '¿Qué características MÍNIMAS debe tener para cumplir su propósito?' Una vez alcanzado ese estándar, LANZAS. No perfeccionas más. Mantra: 'Hecho es mejor que perfecto'.",
+                
+                dispersa: "Implementa la Regla del UNO: solo puedes tener 1 proyecto activo en cada área de tu vida. No puedes empezar nada nuevo hasta COMPLETAR algo actual. Define qué es 'completo' ANTES de empezar, para que tu cerebro no invente nuevas metas a mitad de camino.",
+                
+                complaciente: "Haz el ejercicio del test de autenticidad para cada meta: Si nadie nunca se enterara de que hiciste esto, ¿lo harías igual? ¿Te sientes expandida o contraída cuando piensas en esta meta? Solo metas que pasen este filtro son auténticamente tuyas.",
+                
+                saboteadora: "Identifica TUS patrones específicos de sabotaje. ¿Qué haces típicamente cuando estás cerca de lograr algo importante? (¿Te enfermas? ¿Creas drama? ¿Te distraes?) Crea un plan anti-sabotaje: 'Cuando esté al 80% de mi meta, mi cerebro intentará sabotearme con [X]. Cuando detecte esa señal, voy a [plan específico]'.",
+                
+                dependiente: "Diseña acciones mínimas viables que NO requieran motivación. Define la versión MÁS pequeña de tu meta que puedas hacer sin energía. Ejemplo: no '1 hora de ejercicio', sino '5 minutos de movimiento'. En días con motivación haces más, en días sin ella haces el mínimo. Pero SIEMPRE haces algo.",
+                
+                castigadora: "Practica auto-compasión activa. Identifica 1 cosa por la que te estás maltratando ahora. Pregunta: '¿Le diría esto a mi mejor amiga?' Si la respuesta es NO, no te lo digas a ti misma tampoco. Reescribe con compasión: '¿Qué le diría a alguien que amo en esta situación?'",
+                
+                sonadora: "Construye el puente desde tu presente. Para tu meta más grande, pregunta: ¿Qué de mi presente puede ser semilla de esto? ¿Qué fortaleza que ya tengo puedo usar? Define el paso MÁS pequeño que puedes dar HOY usando esa fortaleza, y hazlo en los próximos 30 minutos.",
+                
+                adicta: "Define tus 3 prioridades NO NEGOCIABLES para el próximo año. De todo lo que haces, pregunta: '¿Esto sirve a alguna de mis 3 prioridades?' Si NO → delega, elimina, o deja para después. Protege tiempo para tus prioridades ANTES de que empiecen las urgencias del día (idealmente primeras 2 horas de la mañana).",
+                
+                victima: "Haz el ejercicio del 'Y si sí se puede': Cuando aparezca un 'no se puede', pregunta: 'Y si sí pudiera hacer esto, ¿cómo sería?' Obliga a tu cerebro a buscar soluciones, no razones. Identifica tu zona de control: en cada situación, pregunta '¿Qué de esto SÍ controlo?' y enfócate 100% en eso."
+            };
+            return pasos[patron] || "";
+        }
+
+        // ==============================================
+        // ENVIAR A GOOGLE SHEETS
+        // ==============================================
+
+        function enviarAGoogleSheets(resultados, dominantes) {
+            const datos = {
+                timestamp: new Date().toISOString(),
+                nombre: userName,
+                email: userEmail,
+                perfeccionista: resultados.perfeccionista,
+                dispersa: resultados.dispersa,
+                complaciente: resultados.complaciente,
+                saboteadora: resultados.saboteadora,
+                dependiente: resultados.dependiente,
+                castigadora: resultados.castigadora,
+                sonadora: resultados.sonadora,
+                adicta: resultados.adicta,
+                victima: resultados.victima,
+                patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
+                respuestas: JSON.stringify(respuestas)
+            };
+            
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(() => {
+                console.log('✅ Resultados guardados en Google Drive');
+            })
+            .catch((error) => {
+                console.error('❌ Error al guardar:', error);
+            });
+        }
+
+        // ==============================================
+        // GENERAR PDF COMPLETO
+        // ==============================================
+
+        document.getElementById('download-pdf-btn').addEventListener('click', async function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const resultados = calcularResultados();
+            const patronesOrdenados = Object.entries(resultados)
+                .map(([patron, puntos]) => ({
+                    patron,
+                    puntos,
+                    porcentaje: (puntos / 20) * 100,
+                    info: patronesInfo[patron]
+                }))
+                .sort((a, b) => b.puntos - a.puntos);
+
+            const dominantes = patronesOrdenados.filter(p => p.puntos >= 10).slice(0, 3);
+            
+            let yPos = 20;
+            const pageHeight = 280;
+            const marginLeft = 20;
+            const marginRight = 190;
+            const logoUrl = 'https://i.postimg.cc/vHYbBxQz/Logo-Neuro-Wellness-Blanco-(2).png';
+            const logoUrlDark = 'https://i.postimg.cc/cJ1y7PHz/Logo-Neuro-Wellness-Color-(1).png';
+            
+            // Función para agregar logo y pie de página
+            function addHeaderFooter(isDarkBackground = false) {
+                // Logo en esquina superior derecha
+                try {
+                    const logo = new Image();
+                    logo.src = isDarkBackground ? logoUrl : logoUrlDark;
+                    doc.addImage(logo, 'PNG', 150, 10, 40, 15);
+                } catch(e) {
+                    // Si falla la imagen, continuar sin logo
+                }
+                
+                // Pie de página
+                doc.setFontSize(8);
+                doc.setTextColor(150, 150, 150);
+                doc.text('© 2025 NeuroWellness Learning - Todos los derechos reservados', 105, 290, { align: 'center' });
+            }
+            
+            // Función para agregar nueva página
+            function checkPageBreak(spaceNeeded) {
+                if (yPos + spaceNeeded > pageHeight) {
+                    doc.addPage();
+                    yPos = 20;
+                    addHeaderFooter(false);
+                    return true;
+                }
+                return false;
+            }
+            
+            // PORTADA
+            doc.setFillColor(20, 35, 58);
+            doc.rect(0, 0, 210, 297, 'F');
+            addHeaderFooter(true);
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(26);
+            doc.text('TU GUÍA DE TRANSFORMACIÓN', 105, 100, { align: 'center' });
+            
+            doc.setFontSize(18);
+            doc.text('Test de Avance Sostenible', 105, 115, { align: 'center' });
+            
+            doc.setFontSize(14);
+            doc.text(userName, 105, 140, { align: 'center' });
+            doc.setFontSize(11);
+            doc.text(userEmail, 105, 150, { align: 'center' });
+            
+            doc.setFontSize(10);
+            const fecha = new Date().toLocaleDateString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            doc.text(fecha, 105, 170, { align: 'center' });
+            
+            // PÁGINA 2: RESUMEN
+            doc.addPage();
+            yPos = 30;
+            addHeaderFooter(false);
+            
+            doc.setTextColor(20, 35, 58);
+            doc.setFontSize(18);
+            doc.text('TUS PATRONES DOMINANTES', marginLeft, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(10);
+            doc.setTextColor(80, 80, 80);
+            const introText = `${userName}, el hecho de que estés aquí haciendo este test ya muestra algo importante: tienes autoconsciencia y deseo de crecer.
+
+Y AÚN ASÍ, año tras año sientes que no avanzas en lo que realmente importa. Esto NO es falta de capacidad ni de voluntad. Es que estos patrones están saboteando tu sistema de manera invisible.`;
+            
+            const splitIntro = doc.splitTextToSize(introText, marginRight - marginLeft);
+            doc.text(splitIntro, marginLeft, yPos);
+            yPos += splitIntro.length * 5 + 15;
+            
+            // Patrones dominantes
+            dominantes.forEach((item, index) => {
+                checkPageBreak(30);
+                
+                doc.setFillColor(233, 200, 200);
+                doc.rect(marginLeft - 5, yPos - 5, marginRight - marginLeft + 10, 22, 'F');
+                
+                doc.setFontSize(13);
+                doc.setTextColor(20, 35, 58);
+                const nombreSinEmoji = item.info.nombre.replace(/[^\w\s]/gi, '').trim();
+                doc.text(nombreSinEmoji, marginLeft, yPos);
+                
+                doc.setFontSize(11);
+                doc.setTextColor(155, 109, 128);
+                doc.text(`${item.puntos}/20 puntos (${item.porcentaje.toFixed(0)}%)`, marginLeft, yPos + 7);
+                
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                let nivel = item.puntos >= 15 ? 'MUY ALTO' : 'ALTO';
+                doc.text(`PATRON DOMINANTE #${index + 1} - ${nivel}`, marginLeft, yPos + 14);
+                
+                yPos += 30;
+            });
+            
+            // PÁGINAS DE CADA PATRÓN CON 8 PASOS COMPLETOS
+            dominantes.forEach((item, index) => {
+                // Obtener contenido completo del patrón
+                const contenido8Pasos = obtenerContenidoCompleto8Pasos(item.patron);
+                
+                // PÁGINA DE TÍTULO DEL PATRÓN
+                doc.addPage();
+                yPos = 30;
+                addHeaderFooter(false);
+                
+                doc.setFillColor(155, 109, 128);
+                doc.rect(0, yPos - 15, 210, 20, 'F');
+                
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(16);
+                const nombrePatronSinEmoji = item.info.nombre.replace(/[^\w\s]/gi, '').trim();
+                doc.text(nombrePatronSinEmoji, 105, yPos, { align: 'center' });
+                yPos += 25;
+                
+                // PASO 1
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 1: REFLEXIONA SOBRE TUS RESULTADOS', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso1Lines = doc.splitTextToSize(contenido8Pasos.paso1, marginRight - marginLeft);
+                doc.text(paso1Lines, marginLeft, yPos);
+                yPos += paso1Lines.length * 4 + 10;
+                
+                // PASO 2
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 2: IDENTIFICA TUS PUNTOS DE QUIEBRE REALES', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso2Lines = doc.splitTextToSize(contenido8Pasos.paso2, marginRight - marginLeft);
+                doc.text(paso2Lines, marginLeft, yPos);
+                yPos += paso2Lines.length * 4 + 10;
+                
+                // PASO 3
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 3: REVISA DE DONDE SALEN TUS METAS', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso3Lines = doc.splitTextToSize(contenido8Pasos.paso3, marginRight - marginLeft);
+                doc.text(paso3Lines, marginLeft, yPos);
+                yPos += paso3Lines.length * 4 + 10;
+                
+                // PASO 4
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 4: REPLANTEA TUS METAS DESDE TU REALIDAD', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso4Lines = doc.splitTextToSize(contenido8Pasos.paso4, marginRight - marginLeft);
+                doc.text(paso4Lines, marginLeft, yPos);
+                yPos += paso4Lines.length * 4 + 10;
+                
+                // PASO 5
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 5: DISEÑA TU SISTEMA PERSONALIZADO', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso5Lines = doc.splitTextToSize(contenido8Pasos.paso5, marginRight - marginLeft);
+                doc.text(paso5Lines, marginLeft, yPos);
+                yPos += paso5Lines.length * 4 + 10;
+                
+                // PASO 6
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 6: IDENTIFICA TUS FORTALEZAS REALES', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso6Lines = doc.splitTextToSize(contenido8Pasos.paso6, marginRight - marginLeft);
+                doc.text(paso6Lines, marginLeft, yPos);
+                yPos += paso6Lines.length * 4 + 10;
+                
+                // PASO 7
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('PASO 7: HAZTE RESPONSABLE', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso7Lines = doc.splitTextToSize(contenido8Pasos.paso7, marginRight - marginLeft);
+                doc.text(paso7Lines, marginLeft, yPos);
+                yPos += paso7Lines.length * 4 + 10;
+                
+                // PASO 8 (ACCIÓN INMEDIATA)
+                checkPageBreak(50);
+                doc.setTextColor(20, 35, 58);
+                doc.setFontSize(12);
+                doc.text('ACCIÓN INMEDIATA PARA EMPEZAR HOY', marginLeft, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const paso8Lines = doc.splitTextToSize(contenido8Pasos.paso8, marginRight - marginLeft);
+                doc.text(paso8Lines, marginLeft, yPos);
+                yPos += paso8Lines.length * 4 + 15;
+            });
+            
+            // PÁGINA FINAL: CTA
+            doc.addPage();
+            yPos = 50;
+            addHeaderFooter(false);
+            
+            doc.setFontSize(18);
+            doc.setTextColor(20, 35, 58);
+            doc.text('¿QUE SIGUE AHORA?', 105, yPos, { align: 'center' });
+            yPos += 15;
+            
+            doc.setFontSize(10);
+            doc.setTextColor(60, 60, 60);
+            const ctaTexto = `Esta guía te dio el plan completo. Ahora sabes exactamente que patrones estan saboteandote y como transformarlos.
+
+Pero la verdadera transformacion requiere:
+- Trabajar tus creencias de raiz
+- Diseñar sistemas especificos para TU cerebro
+- Accountability cuando flaquees
+- Acompañamiento profesional
+
+Esto es lo que trabajamos en NeuroWellness Learning:
+Transformacion profunda basada en 4 pilares:
+
+NEURO-BALANCE: Regulacion emocional y gestion del estres
+NEURO-FOCUS: Claridad, prioridad y direccion con sentido
+NEURO-IMPULSO: De la intencion a la accion sostenible
+NEURO-FLOW: Relaciones autenticas y liderazgo empatico`;
+            
+            const splitCta = doc.splitTextToSize(ctaTexto, marginRight - marginLeft);
+            doc.text(splitCta, marginLeft, yPos);
+            yPos += splitCta.length * 5 + 20;
+            
+            // Contacto con QR
+            doc.setFillColor(233, 200, 200);
+            doc.rect(marginLeft - 5, yPos - 5, marginRight - marginLeft + 10, 45, 'F');
+            
+            doc.setFontSize(12);
+            doc.setTextColor(20, 35, 58);
+            doc.text('CONTACTO:', marginLeft, yPos);
+            yPos += 10;
+            
+            doc.setFontSize(10);
+            doc.text('WhatsApp: +34 603 777 334', marginLeft, yPos);
+            yPos += 7;
+            doc.text('Escribeme para evaluar si el programa es para ti', marginLeft, yPos);
+            yPos += 20;
+            
+            // Créditos finales
+            doc.setFontSize(9);
+            doc.setTextColor(120, 120, 120);
+            doc.text('Diseñado por Mariale Urdaneta - Neurosicoeducadora', 105, yPos, { align: 'center' });
+            yPos += 5;
+            doc.text('NeuroWellness Learning', 105, yPos, { align: 'center' });
+            yPos += 8;
+            
+            doc.setFontSize(8);
+            doc.setTextColor(140, 140, 140);
+            doc.text('Basado en los 4 pilares:', 105, yPos, { align: 'center' });
+            yPos += 4;
+            doc.text('Neuro-Balance • Neuro-Focus • Neuro-Impulso • Neuro-Flow', 105, yPos, { align: 'center' });
+            
+            doc.save(`Guia-Transformacion-${userName.replace(/\s+/g, '-')}.pdf`);
+        });
+        
+        // Función para obtener contenido completo de 8 pasos
+        function obtenerContenidoCompleto8Pasos(patron) {
+            const contenidos = {
+                perfeccionista: {
+                    paso1: "Tomate un momento para conectar con lo que acabas de descubrir: ¿Que emocion te despierta saber que el perfeccionismo te esta paralizando? ¿Cuantas oportunidades has perdido por esperar el 'momento perfecto'? ¿Cuantos proyectos tienes sin empezar porque 'no estan listos'? Escribe tus respuestas. La autoconsciencia es el primer paso del cambio.",
+                    
+                    paso2: "Este patron no es 'exigirte excelencia' - eso seria saludable. Es usar la perfeccion como escudo contra el miedo al juicio. Preguntate: ¿Que esta pasando realmente cuando postergo 'hasta tener todo perfecto'? En el fondo tienes miedo. Miedo a que te juzguen, a fallar, a no ser suficiente. La perfeccion es tu excusa para no arriesgarte. ¿Por que abandonas cuando los resultados no son impecables? Porque equiparas tu valor como persona con la calidad del resultado. Este es tu punto de quiebre: no tienes un problema de estandares altos, tienes miedo de ser juzgada.",
+                    
+                    paso3: "Antes de plantearte metas, necesitas entender: no todas las metas vienen del 'fuego interno', y eso esta bien. Hay metas necesarias por contexto (salud, trabajo, economia) y metas deseadas desde el alma (pasiones, sueños, proposito). Para cada meta, identifica si es de NECESIDAD o de DESEO. Ambas son validas, pero necesitas conectar las metas de necesidad con algo significativo para ti. Ejemplo: 'Esta presentacion es mi forma de comunicar ideas que pueden generar impacto real' vs 'Debo hacer una presentacion perfecta'.",
+                    
+                    paso4: "Plantea metas que TRABAJEN CON tu tendencia perfeccionista, no contra ella. NO hagas: metas con estandares vagos, metas donde 'perfecto' no tiene definicion clara, proyectos sin fecha de lanzamiento definida. SI haz: metas con criterio 'suficientemente bueno' PREDEFINIDO, con fecha limite firme de lanzamiento, metas de proceso no solo resultado, con version 1.0 explicita. Aprende a dividir lo abstracto en concreto. No buscas perfeccion, buscas ACCION que puedes mejorar despues.",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Define 'suficientemente bueno' ANTES de empezar - escribe las caracteristicas MINIMAS necesarias. Una vez alcanzado ese estandar, LANZAS. 2) Fecha limite de lanzamiento no negociable - sal al mundo independiente de si te sientes lista. 3) Regla del 80% - si esta 80% bien, es suficiente para lanzar. El 20% restante lo mejoras DESPUES. 4) Separa 'crear' de 'perfeccionar' - NUNCA mezcles ambos. 5) Exposicion gradual al 'error publico' - comparte cosas pequeñas imperfectas y observa que el mundo no se acaba.",
+                    
+                    paso6: "Tienes fortalezas que vienen de este patron: tu estandar alto de calidad produce trabajo excelente, tu atencion al detalle ve cosas que otras no ven, tu capacidad de anticipar problemas previene errores grandes. El objetivo no es eliminar estos atributos, es CANALIZARLOS: usa tu estandar alto despues de lanzar no antes, usa tu atencion al detalle en revision final no en borrador inicial, usa tu anticipacion para planear no para paralizarte. Tu zona de genio: crear trabajo de alta calidad cuando tienes el coraje de lanzar imperfecto primero y mejorar despues.",
+                    
+                    paso7: "Pregunta incomoda: ¿Que parte de 'no logro mis metas' es por 'falta de tiempo para perfeccionar' y que parte es miedo disfrazado de perfeccionismo? La verdad: probablemente 90% es miedo y 10% es estandar genuino. Tu trabajo: reconocer cuando tu perfeccionismo es proteccion contra el miedo al juicio, al fracaso, a no ser suficiente. No puedes controlar como reaccionan otras personas. Puedes controlar si actuas a pesar del miedo, si lanzas aunque no este perfecto. La paradoja: la gente que mas admiras probablemente lanzo cosas imperfectas y las mejoro con el tiempo.",
+                    
+                    paso8: "No esperes a que este perfecto. Actua ahora: 1) Toma 1 proyecto que has estado postergando (el que 'no esta listo'). 2) Define que es 'suficientemente bueno' (3-5 caracteristicas minimas). 3) Establece fecha limite de lanzamiento (maximo 2 semanas desde hoy). 4) Crea la version mas simple en los proximos 30 minutos (borrador, prototipo, esquema). 5) Compartelo con 1 persona HOY (aunque te de verguenza, aunque no este perfecto). Este es el reset. Demostrarle a tu cerebro que puedes sobrevivir a lo imperfecto."
+                },
+                
+                dispersa: {
+                    paso1: "Tomate un momento: ¿Que emocion te despierta saber que tu entusiasmo por lo nuevo te esta dispersando? ¿Cuantos proyectos tienes 'en pausa' esperando que vuelvas a ellos? ¿Cuantas veces has dicho 'esta vez si lo termino' y no lo has hecho? La autoconsciencia es el primer paso.",
+                    
+                    paso2: "Este patron no es 'tener muchos intereses' - eso seria riqueza. Es confundir inicio con logro. Preguntate: ¿Que esta pasando realmente cuando me emociono con algo nuevo y abandono lo anterior? Estas adicta al subidon de dopamina del inicio. La novedad te da energia, pero cuando baja la emocion, pierdes interes. No has aprendido a sostener el compromiso mas alla del entusiasmo inicial. Este es tu punto de quiebre: no tienes un problema de falta de capacidad, tienes adiccion a lo nuevo y ausencia de disciplina para completar.",
+                    
+                    paso3: "Como Dispersa Entusiasta, probablemente tienes 10+ 'metas de deseo' porque TODO te parece emocionante. Pero no tienes claridad de cual es la MAS importante ahora. El trabajo clave: Distinguir 'me parece interesante' de 'es mi prioridad ahora'. EJERCICIO: Haz una lista de TODO lo que quieres hacer. Ahora responde: 'Si solo pudiera completar UNA cosa este año, ¿cual tendria mas impacto en mi vida?' ESA es tu prioridad. El resto puede esperar.",
+                    
+                    paso4: "Para ti: NO hagas multiples metas grandes simultaneas, metas de largo plazo sin hitos intermedios, proyectos sin definicion clara de 'completo'. SI haz: 1 meta prioritaria a la vez, con 'completo' definido ANTES de empezar, dividida en sprints de 4-6 semanas, con variedad EN el proyecto (no cambiando de proyecto). Ejemplo: 'Voy a completar curso de programacion en 8 semanas, 1 modulo por semana, celebro cada modulo terminado' vs 'Quiero aprender programacion, diseño, marketing...'",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) REGLA DEL UNO - solo puedes tener 1 proyecto activo en cada area de tu vida. No puedes empezar nada nuevo hasta COMPLETAR algo actual. 2) Define 'completo' ANTES de empezar - escribe: '¿Como sabre que esta completa?' 3) Sprints de 4-6 semanas con variedad - cambia algo cada sprint para mantener novedad sin cambiar de proyecto. 4) Sistema de tentaciones - cuando aparezca algo nuevo emocionante: escribelo en 'lista de espera', espera 72 horas antes de decidir, evalua si amerita abandonar lo actual. 5) Celebra COMPLETAR no iniciar - tu cerebro debe aprender que el premio es terminar.",
+                    
+                    paso6: "Fortalezas: tu entusiasmo genuino por ideas nuevas es valioso, tu capacidad de ver posibilidades que otras no ven es un regalo, tu energia inicial puede inspirar a otras personas. El objetivo no es matar tu entusiasmo, es ENFOCARLO: canaliza tu curiosidad en PROFUNDIZAR en 1 cosa, usa tu energia inicial para arrancar fuerte sabiendo que despues viene la fase menos emocionante (y esta bien), usa tu capacidad de ver posibilidades para mejorar tu proyecto actual no para saltar a uno nuevo. Tu zona de genio: crear cosas innovadoras cuando tienes la disciplina de completar lo que empiezas.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantos proyectos has abandonado no porque 'no funcionaron' sino porque aparecio algo mas emocionante? ¿Que parte de 'no tengo tiempo' es cierto y que parte es que prefieres la emocion de lo nuevo sobre el trabajo de completar? No puedes controlar que aparezcan ideas nuevas emocionantes. Puedes controlar si actuas en base a esas ideas o si primero completas lo que empezaste. La paradoja: las personas que mas admiras probablemente completaron menos proyectos de los que empezaron, pero COMPLETARON los importantes. Tu estas empezando muchos sin completar ninguno.",
+                    
+                    paso8: "No empieces algo nuevo. Completa algo viejo: 1) Haz una lista de TODO lo que has empezado y no has terminado. 2) Elige la que este MAS cerca de completarse. 3) Define que falta para que este completa. 4) Bloquea 2 horas esta semana y completala. 5) Celebralo cuando termines (sin empezar algo nuevo). Este es el reset. Demostrarle a tu cerebro que completar se siente MEJOR que iniciar."
+                },
+                
+                complaciente: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que estableces metas desde 'deberia' mas que desde deseo genuino? ¿Cuanto resentimiento has acumulado cumpliendo expectativas de otras personas? ¿Cuando fue la ultima vez que hiciste algo solo porque TU lo querias, no porque alguien esperaba que lo hicieras?",
+                    
+                    paso2: "Este patron no es 'ser considerada' - eso seria empatia. Es haber perdido conexion con tus propios deseos. Preguntate: ¿Que esta pasando cuando establezco metas que 'deberia' cumplir? Has aprendido que tu valor depende de cumplir expectativas externas. Priorizas las expectativas de otras personas sobre las tuyas. El resentimiento acumulado es señal de que estas viviendo la vida de alguien mas. Este es tu punto de quiebre: no tienes un problema de ser 'mala persona' si priorizas tus deseos, tienes miedo de decepcionar y has olvidado quien eres sin la aprobacion externa.",
+                    
+                    paso3: "Para cada meta que tienes, haz el TEST DE AUTENTICIDAD: 'Si nadie nunca se enterara de que hice esto, ¿lo haria igual?' Si la respuesta es NO, esa meta no es tuya. '¿Me siento expandida o contraida cuando pienso en esta meta?' Expansion = autentica. Contraccion = complacencia. Solo metas que pasen este filtro son autenticamente tuyas. Ejemplo: 'Quiero el ascenso' - ¿Lo quieres tu o quieres impresionar a tu familia? Ambas respuestas son validas pero requieren estrategias diferentes.",
+                    
+                    paso4: "Para ti: NO hagas metas que vienen de 'deberia' sin conexion a TU deseo, metas para impresionar/complacer sin valor personal, compromisos que generan resentimiento. SI haz: metas que TE expanden (aunque decepcionen a alguien), metas conectadas a TUS valores no a expectativas ajenas, practica decir NO a compromisos que drenan tu energia. Ejemplo: 'Voy a dedicar 3 horas semanales a mi hobby que amo aunque mi familia piense que es perdida de tiempo' vs 'Deberia pasar mas tiempo con mi familia aunque preferiria estar sola'.",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Practica diaria de conexion contigo misma - cada mañana pregunta: '¿Que quiero YO hoy? (no que deberia querer)'. 2) Regla del 'pause antes de decir si' - cuando alguien pida algo, di 'dejame pensarlo' antes de comprometerte automaticamente. 3) Auditoria semanal de energia - identifica que actividades te expanden vs drenan. Reduce deliberadamente las que drenan. 4) Practica decir NO sin justificacion - 'No puedo' sin explicar porque. Tu tiempo es tuyo. 5) Define TUS valores core - escribe 3-5 valores que son tuyos (no heredados). Toda meta debe alinearse con al menos uno.",
+                    
+                    paso6: "Fortalezas: tu empatia y consideracion por otras personas es valiosa, tu capacidad de ver necesidades ajenas te hace excelente en trabajo colaborativo, tu flexibilidad te permite adaptarte. El objetivo no es volverte egoista, es EQUILIBRAR: usa tu empatia para entender a otras Y a ti misma por igual, usa tu capacidad de ver necesidades ajenas despues de haber visto las tuyas primero, usa tu flexibilidad para adaptarte a situaciones no para abandonar tus deseos. Tu zona de genio: crear impacto genuino cuando actuas desde tus deseos autenticos no desde obligacion.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantas de tus metas actuales son realmente TUYAS y cuantas estan ahi para complacer/impresionar a alguien? ¿Que tanto resentimiento sientes hacia las personas por quienes haces cosas que no quieres hacer? (pista: ese resentimiento es tu responsabilidad, no de ellas). No puedes controlar que otras personas tengan expectativas sobre ti. Puedes controlar si cumples esas expectativas o priorizas tus deseos. La paradoja: cuando actuas desde autenticidad (no complacencia), tus relaciones mejoran porque la gente conecta con la persona real, no con la version que complace.",
+                    
+                    paso8: "Accion radical: 1) Identifica 1 compromiso actual que genera resentimiento (algo que 'deberias' hacer pero no quieres). 2) Preguntate: '¿Que pasaria si NO lo hiciera?' (probablemente nada catastrofico). 3) Decide conscientemente: ¿Lo hago porque YO quiero o porque temo decepcionar? 4) Si es por miedo: practica decir NO. Si es por deseo genuino: hazlo pero desde eleccion consciente. 5) Escribe 1 cosa que TU quieres hacer esta semana (que no este en la agenda de nadie mas) y hazla. Este es el reset. Demostrarle a tu cerebro que tu tambien importas."
+                },
+                
+                saboteadora: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que te saboteas cuando estas cerca del exito? ¿Cuantas veces has estado al 90% de lograr algo importante y 'algo paso' que lo arruino? ¿Reconoces algun patron en las formas en que te saboteas?",
+                    
+                    paso2: "Este patron no es 'mala suerte' - es inconsciente. Preguntate: ¿Que esta pasando cuando me saboteo cerca del exito? Una parte de ti tiene MIEDO del exito porque tu identidad no incluye 'ser exitosa'. El exito se percibe como amenaza. Si logras esto, ¿quien serias? ¿Que esperarian de ti despues? ¿Tendrias que mantener ese nivel siempre? El sabotaje es tu sistema protegiendote de una identidad que no sabes habitar. Este es tu punto de quiebre: no tienes un problema de capacidad, tienes miedo de lo que significaria ser exitosa.",
+                    
+                    paso3: "Preguntate: ¿De donde vienen mis metas? ¿Son realmente mias o estoy persiguiendo el exito que otras personas definen? Si logro esto, ¿me acerca a quien quiero ser o a quien otros esperan que sea? El sabotaje puede ser tu verdad hablando: 'esto no es para mi'. O puede ser miedo. Distinguir entre ambos es crucial. Ejemplo: 'Quiero el ascenso' - ¿Lo saboteas porque no lo quieres realmente o porque tienes miedo de la responsabilidad que viene con el? Ambos requieren respuestas diferentes.",
+                    
+                    paso4: "Para ti: NO hagas metas que te pongan en un nivel de visibilidad que tu identidad no puede sostener todavia, metas sin plan de 'que hago despues de lograrlo', metas donde el exito te obliga a mantener estandares insostenibles. SI haz: metas con expansion gradual de tu zona de confort (no saltos gigantes), metas donde defines 'como sera mi vida DESPUES de lograr esto', metas donde el exito no te obliga a ser alguien que no eres. Ejemplo: 'Voy a aumentar mis ingresos 20% este año y usare ese dinero para X' vs 'Voy a ser millonaria' (identidad inalcanzable).",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Identifica TUS patrones especificos de sabotaje - ¿Que haces tipicamente cuando estas cerca de lograr algo importante? (¿Te enfermas? ¿Creas drama? ¿Te distraes?). 2) Crea plan anti-sabotaje: 'Cuando este al 80% de mi meta, mi cerebro intentara sabotearme con X. Cuando detecte esa señal, voy a Y'. 3) Expansion gradual de identidad - practica diariamente decir 'Soy una persona que...' (ej: 'Soy una persona que completa lo que empieza'). 4) Define tu nueva normalidad ANTES de lograr - visualiza detalladamente como es tu vida despues del exito. 5) Red de soporte anti-sabotaje - dile a alguien tu patron y pide que te señale cuando lo vea activarse.",
+                    
+                    paso6: "Fortalezas: tu capacidad de detectar cuando algo no es autentico para ti es valiosa (el sabotaje a veces es sabiduria), tu humildad te protege de arrogancia, tu cautela te hace evaluar riesgos. El objetivo no es eliminar tu cautela, es DISTINGUIR: ¿Es sabotaje por miedo o sabiduria diciendome que esto no es para mi? Usa tu capacidad de detectar incongruencias para evaluar si tus metas son autenticas, usa tu humildad para mantener conexion con quien eres mientras creces, usa tu cautela para planear el exito no para evitarlo. Tu zona de genio: lograr exitos sostenibles cuando tu identidad y tus metas estan alineadas.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantas veces te has saboteado y luego te has dicho 'no era para mi' cuando en realidad era miedo? ¿Que tendrias que creer sobre ti misma para permitirte el exito sin sabotearte? ¿Que perdrias si logras lo que dices querer? (pista: a veces hay ganancias secundarias en el sabotaje - atencion, excusas, comodidad). No puedes controlar que aparezca el miedo cuando te acercas al exito. Puedes controlar si actuas desde ese miedo o a pesar de el. La paradoja: el exito que temes probablemente te haria mas tu misma, no menos.",
+                    
+                    paso8: "Accion consciente: 1) Identifica 1 meta en la que estas al 70-80% de completar. 2) Escribe: '¿Como intentare sabotearme en las proximas 2 semanas?' (se especifica - conoces tus patrones). 3) Crea plan de contingencia: 'Si X sucede, en lugar de Y, voy a Z'. 4) Dile a alguien tu plan anti-sabotaje y pide accountability. 5) Completa esa meta observando cada impulso de sabotaje sin actuar en el. Este es el reset. Demostrarle a tu cerebro que puedes lograr cosas sin sabotearte."
+                },
+                
+                dependiente: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que solo actuas cuando te sientes motivada? ¿Cuantas veces has esperado 'sentir ganas' para hacer algo importante? ¿Cuanto tiempo has perdido esperando que llegue la motivacion?",
+                    
+                    paso2: "Este patron no es 'necesitar inspiracion' - eso seria valido ocasionalmente. Es haber condicionado tu accion a un estado emocional especifico. Preguntate: ¿Que esta pasando cuando solo actuo con motivacion? Has entrenado tu cerebro a esperar un 'permiso emocional' para actuar. El problema no es falta de motivacion, es ausencia de sistemas que te sostengan cuando la motivacion no esta presente. La motivacion es como el clima: impredecible y fuera de tu control. Este es tu punto de quiebre: no tienes un problema de 'falta de ganas', tienes dependencia de un estado emocional que es temporal por naturaleza.",
+                    
+                    paso3: "Preguntate: ¿De donde vienen mis metas? ¿Son genuinamente mias o estoy esperando sentir 'pasion' por algo antes de comprometerme? La verdad: no siempre vas a sentir pasion por tus metas, y esta bien. Algunas metas son necesarias (salud, economia) y requieren accion sin motivacion. Otras son deseadas pero tambien tendran dias sin ganas. Ejemplo: 'Quiero hacer ejercicio' - algunos dias te emocionara, otros dias lo odiaras. Si solo actuas en los dias emocionantes, nunca construyes el habito.",
+                    
+                    paso4: "Para ti: NO hagas metas que dependan de 'sentir ganas' para actuar, metas sin sistema de accion automatica, metas vagas donde la falta de claridad drena tu motivacion. SI haz: metas con acciones minimas viables que NO requieran motivacion, metas con sistemas automatizados (rutinas, recordatorios, triggers), metas donde defines CUANDO actuas (no esperas sentir ganas). Ejemplo: 'Todos los lunes y jueves a las 7am hago ejercicio (con o sin ganas)' vs 'Voy a hacer ejercicio cuando me sienta motivada'.",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Diseña acciones minimas viables - define la version MAS pequeña de tu meta que puedas hacer sin energia. Ej: no '1 hora de ejercicio' sino '5 minutos de movimiento'. 2) Rutinas ancladas - ancla nuevas acciones a rutinas existentes. Ej: 'Despues de lavarme los dientes, hago 2 minutos de meditacion'. 3) Reduce friccion - prepara todo la noche anterior. Ropa de ejercicio lista, materiales de trabajo preparados. 4) Celebra ACCION no resultado - felicitate por actuar sin ganas, no por el resultado perfecto. 5) Regla del 2 minutos - cuando no tengas ganas, comprometete a 2 minutos. Usualmente continuaras, pero si no, 2 minutos es mejor que nada.",
+                    
+                    paso6: "Fortalezas: cuando SI estas motivada, tu energia es explosiva y valiosa, tu capacidad de conectar emocionalmente con tus metas te da claridad sobre que te importa, tu entusiasmo genuino inspira a otras. El objetivo no es matar tu motivacion, es NO DEPENDER de ella: usa tu energia alta para construir sistemas que funcionen en tu energia baja, usa tu conexion emocional para elegir metas pero no para ejecutarlas, usa tu entusiasmo cuando aparece pero no lo esperes para actuar. Tu zona de genio: lograr consistencia cuando tienes sistemas que no dependen de tu estado emocional.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantas metas importantes has abandonado no porque no funcionaron sino porque 'perdiste las ganas'? ¿Que tanto de tu vida esta en pausa esperando que llegue la motivacion? No puedes controlar cuando aparece la motivacion. Puedes controlar si construyes sistemas que funcionen sin ella. La paradoja: la motivacion SIGUE a la accion, no la precede. Cuando actuas sin ganas y ves resultados, la motivacion regresa. Pero si esperas motivacion para actuar, nunca llegas a los resultados que la generan.",
+                    
+                    paso8: "Accion sin motivacion: 1) Elige 1 meta importante que has estado postergando. 2) Define la accion MAS pequeña que puedes hacer (algo que tome menos de 5 minutos). 3) Hazla HOY, sin esperar ganas. Ponla en calendario ahora mismo. 4) Cuando llegue el momento, hazla aunque no tengas ganas. 5) Despues de hacerla, registra: 'Actue sin motivacion y sobrevivi'. Este es el reset. Demostrarle a tu cerebro que puedes actuar sin ganas y que sobrevives (y hasta disfrutas)."
+                },
+                
+                castigadora: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que tu dialogo interno es brutal cuando fallas? ¿Como te hablas a ti misma cuando cometes un error? ¿Le dirias esas mismas palabras a tu mejor amiga? Si la respuesta es NO, ¿por que te las dices a ti?",
+                    
+                    paso2: "Este patron no es 'tener estandares altos' - eso seria autocritica constructiva. Es maltrato interno que no te motiva, te paraliza. Preguntate: ¿Que esta pasando cuando me hablo con tanta dureza? Has aprendido que tu valor como persona depende de tu desempeño. Cuando hay error, tu valor colapsa. El castigo interno es tu forma de 'corregirte' pero en realidad te esta destruyendo. Este es tu punto de quiebre: no tienes un problema de 'falta de disciplina', tienes una relacion abusiva contigo misma que drena tu energia y sabotea tu capacidad de actuar.",
+                    
+                    paso3: "Preguntate: ¿De donde vienen mis metas? ¿Son desde amor propio o desde miedo al castigo? Si logro esto, ¿sera porque me quiero o porque quiero evitar maltratarme? Ejemplo: 'Quiero bajar de peso' - ¿Es desde 'quiero cuidar mi cuerpo porque lo amo' o desde 'me odio como estoy y necesito cambiar para ser valiosa'? La segunda genera ciclos de castigo. La primera genera transformacion sostenible.",
+                    
+                    paso4: "Para ti: NO hagas metas desde auto-odio ('deberia ser diferente'), metas donde el error equivale a fracaso total, metas sin compasion por tu humanidad. SI haz: metas desde auto-respeto ('me merezco esto'), metas con plan de prevencion de recaidas (no plan de castigo cuando falles), metas donde el error es informacion no catastrofe. Ejemplo: 'Voy a moverme 4 veces esta semana porque mi cuerpo merece cuidado. Si solo me muevo 2 veces, evaluare que paso y ajustare para la proxima' vs 'Voy a hacer ejercicio todos los dias y si fallo soy un fracaso'.",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Practica auto-compasion activa - cuando te equivoques, pregunta: '¿Que le diria a mi mejor amiga en esta situacion?' y dite eso a ti misma. 2) Diario de error constructivo - cuando falles, escribe: 'Que aprendi de esto (no que hice mal)'. 3) Separar identidad de accion - practica decir 'Hice X que no funciono' en lugar de 'Soy un fracaso'. 4) Celebrar intentos no solo exitos - felicitate por intentar, no solo por lograr. 5) Plan de prevencion de recaidas - antes de empezar, escribe: 'Si cometo error X, en lugar de castigarme, voy a Y'.",
+                    
+                    paso6: "Fortalezas: tu capacidad de ver donde puedes mejorar es valiosa (si la usas constructivamente), tu estandar alto puede producir trabajo excelente, tu autoconsciencia sobre tus areas de crecimiento es valiosa. El objetivo no es eliminar tu autocritica, es TRANSFORMARLA en auto-compasion que motiva: usa tu capacidad de ver mejoras desde curiosidad no desde juicio, usa tu estandar alto despues de darte permiso de fallar, usa tu autoconsciencia para crecer no para destruirte. Tu zona de genio: crear excelencia cuando te hablas con el mismo amor que le hablas a alguien que amas.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantas metas has abandonado no porque 'no funcionaron' sino porque tu castigo interno te dejo sin energia para continuar? ¿Que tanto de tu 'falta de motivacion' es en realidad agotamiento por maltratarte? No puedes controlar que aparezcan errores. Puedes controlar como te hablas cuando aparecen. La paradoja: la gente que mas logra no es la que menos falla, es la que se habla con compasion cuando falla. Tu te estas destruyendo y esperando tener energia para lograr. No funciona asi.",
+                    
+                    paso8: "Accion compasiva: 1) Identifica 1 cosa por la que te estas maltratando ahora mismo. 2) Escribe exactamente que te estas diciendo. 3) Pregunta: '¿Le diria esto a mi mejor amiga?' Si NO, 4) Reescribe con compasion: '¿Que le diria a alguien que amo en esta situacion?' 5) Dite esas palabras a ti misma en voz alta, mirándote al espejo. Este es el reset. Demostrarle a tu cerebro que mereces el mismo amor que le das a las personas que amas."
+                },
+                
+                sonadora: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que tus visiones estan desconectadas de pasos concretos? ¿Cuantos sueños grandes tienes flotando sin raices? ¿Cuando fue la ultima vez que convertiste una vision en realidad?",
+                    
+                    paso2: "Este patron no es 'soñar en grande' - eso seria inspirador. Es tener visiones desconectadas de tu presente. Preguntate: ¿Que esta pasando cuando sueño grande pero no avanzo? Tus visiones estan en el futuro pero no tienes puente desde tu presente. El problema no es tu capacidad de soñar, es la desconexion entre el sueño y el camino real desde donde estas. Este es tu punto de quiebre: no tienes un problema de falta de vision, tienes ausencia de pasos concretos que conecten tu presente con tu futuro.",
+                    
+                    paso3: "Preguntate: ¿De donde vienen tus visiones? ¿Son desde tus fortalezas actuales o desde una version idealizada de ti que no existe? La brecha entre quien eres hoy y tu vision es donde vive la accion. Ejemplo: 'Quiero ser speaker internacional' - ¿Que de tu presente puede ser semilla de eso? ¿Hablas en reuniones? ¿Escribes? ¿Compartes ideas? Empieza ahi. No saltas a 'speaker internacional' sin pasar por 'comparto mi voz en espacios pequeños'.",
+                    
+                    paso4: "Para ti: NO hagas visiones sin puente a tu presente, metas abstractas sin pasos concretos, sueños que ignoran completamente tu realidad actual. SI haz: visiones conectadas a tus fortalezas ACTUALES, metas con escalera de micro-hitos desde donde estas, sueños que respetan tu presente mientras te expanden. Ejemplo: 'Quiero escribir un libro' - Paso 1: escribir 1 articulo semanal durante 3 meses. Paso 2: compilar 12 articulos en ebook. Paso 3: expandir ebook en libro. vs 'Quiero escribir un libro' (sin pasos).",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Mapeo de fortalezas actuales - escribe: '¿Que se hacer AHORA que puede ser semilla de mi vision?' 2) Escalera de micro-hitos - divide tu vision en pasos tan pequeños que no te asusten. 3) Conexion semanal vision-presente - cada semana pregunta: '¿Esta accion me acerca a mi vision?' 4) Celebra micro-avances - cada paso hacia tu vision merece celebracion, no solo el logro final. 5) Revision trimestral de vision - ajusta tu vision basada en tu crecimiento real, no mantengas sueños desconectados de quien estas siendo.",
+                    
+                    paso6: "Fortalezas: tu capacidad de visualizar posibilidades es poderosa, tu vision inspiradora puede motivarte y motivar a otras, tu ambicion genuina es motor de cambio. El objetivo no es dejar de soñar, es ENRAIZAR tus sueños: usa tu capacidad de visualizar para ver el camino desde aqui no solo el destino, usa tu vision para inspirarte pero tu presente para guiar tu accion, usa tu ambicion para expandirte gradualmente no para crear brechas insostenibles. Tu zona de genio: crear realidades extraordinarias cuando construyes el puente desde tu presente paso a paso.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantas de tus visiones son escapismo de tu presente vs expansion genuina desde quien eres? ¿Que tanto de tu 'soñar grande' es evitar hacer el trabajo pequeño que esta frente a ti hoy? No puedes controlar cuanto tardas en llegar a tu vision. Puedes controlar si das el paso que esta frente a ti hoy. La paradoja: las personas que logran visiones grandes no son las que mas sueñan, son las que dan pasos pequeños consistentemente. Tu estas soñando sin caminar.",
+                    
+                    paso8: "Accion enraizada: 1) Toma tu vision mas grande. 2) Pregunta: '¿Que de mi PRESENTE puede ser semilla de esto?' 3) Identifica 1 fortaleza que ya tienes que puede servirte. 4) Define 1 accion pequeña que puedes hacer HOY usando esa fortaleza. 5) Hazla en los proximos 30 minutos. Este es el reset. Demostrarle a tu cerebro que las visiones se construyen desde el presente, no desde el futuro."
+                },
+                
+                adicta: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que solo eres productiva bajo presion? ¿Cuanto tiempo llevas viviendo en modo crisis? ¿Cuantas veces has dejado que lo urgente desplace lo importante?",
+                    
+                    paso2: "Este patron no es 'ser productiva bajo presion' - eso seria capacidad. Es NECESITAR presion para funcionar. Preguntate: ¿Que esta pasando cuando solo actuo bajo urgencia? Tu cerebro esta adicto al coctel de dopamina + adrenalina que viene con la presion. Has entrenado tu sistema a funcionar solo en emergencias. Lo importante nunca sera urgente hasta que sea demasiado tarde. Este es tu punto de quiebre: no tienes un problema de gestion del tiempo, tienes adiccion a la presion y ausencia de claridad en prioridades.",
+                    
+                    paso3: "Preguntate: ¿De donde vienen tus metas? ¿Son todas urgentes o hay importantes que estas ignorando porque no tienen deadline externo? La matriz Eisenhower: importante+urgente, importante+no urgente, no importante+urgente, no importante+no urgente. Vives en importante+urgente e ignoras importante+no urgente (salud, relaciones, crecimiento personal). Ejemplo: 'Hacer ejercicio' es importante pero no urgente, entonces lo postergas. Hasta que se vuelve urgente (problema de salud). Pero ya es tarde.",
+                    
+                    paso4: "Para ti: NO hagas solo metas con deadline externo, metas sin claridad de prioridad, metas que dependan de crisis para activarte. SI haz: metas con tus 3 PRIORIDADES NO NEGOCIABLES definidas, metas con bloques protegidos ANTES de que aparezcan urgencias, metas con urgencia artificial (deadlines auto-impuestos). Ejemplo: 'Mis 3 prioridades: salud, familia, crecimiento profesional. Bloqueo tiempo para cada una ANTES de que empiecen las urgencias del dia' vs 'Voy a hacer ejercicio cuando tenga tiempo'.",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Define tus 3 prioridades NO NEGOCIABLES para el año. 2) Bloquea tiempo para prioridades ANTES de urgencias - idealmente primeras 2 horas de la mañana. 3) Crea urgencia artificial - pon deadlines a cosas importantes aunque no tengan presion externa. 4) Practica decir NO a urgencias que no sirven a tus prioridades. 5) Revision semanal: '¿Esta semana servi a mis prioridades o solo a urgencias ajenas?' Ajusta basada en respuesta.",
+                    
+                    paso6: "Fortalezas: tu capacidad de actuar rapido bajo presion es valiosa en emergencias reales, tu energia explosiva cuando hay urgencia te hace resolver crisis eficientemente, tu capacidad de priorizar en momento de caos es util. El objetivo no es eliminar tu capacidad de manejar presion, es NO DEPENDER de ella: usa tu rapidez en emergencias reales no auto-creadas, usa tu energia explosiva para avanzar en prioridades antes de que se vuelvan urgentes, usa tu capacidad de priorizar para proteger lo importante antes de que haya crisis. Tu zona de genio: lograr alto impacto cuando proteges tiempo para lo importante antes de que se vuelva urgente.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuantas de tus 'urgencias' son auto-creadas por procrastinar lo importante? ¿Que tanto de tu productividad bajo presion es en realidad agotamiento por vivir en crisis constante? No puedes controlar que aparezcan urgencias externas. Puedes controlar si proteges tiempo para lo importante antes de que se vuelva urgente. La paradoja: si dedicas tiempo a lo importante cuando NO es urgente, reduces drasticamente tus crisis. Pero vives adicta a la adrenalina de la crisis y ignoras lo importante hasta que explota.",
+                    
+                    paso8: "Accion preventiva: 1) Identifica 1 cosa importante que has estado ignorando porque no es urgente todavia (salud, relacion, proyecto personal). 2) Pregunta: '¿Que pasaria si esto se vuelve urgente?' (probablemente crisis). 3) Define 1 accion pequena que puedes hacer HOY para avanzar en esto antes de que sea crisis. 4) Bloquea tiempo MAÑANA (primera hora del dia) para esa accion. 5) Hazla sin esperar urgencia. Este es el reset. Demostrarle a tu cerebro que puedes actuar en lo importante sin necesitar crisis."
+                },
+                
+                victima: {
+                    paso1: "Conecta con esto: ¿Que emocion te despierta saber que externalizas responsabilidad a las circunstancias? ¿Cuantas veces has pensado 'no puedo porque...'? ¿Cuando fue la ultima vez que pensaste 'puedo SI...'?",
+                    
+                    paso2: "Este patron no es 'reconocer obstaculos reales' - eso seria realismo. Es haber entregado tu poder a factores externos. Preguntate: ¿Que esta pasando cuando siento que no puedo avanzar por circunstancias? Has adoptado una mentalidad donde buscas razones de POR QUE NO en lugar de soluciones para COMO SI. El problema no es que no tengas recursos (tiempo, dinero), es que has decidido que esos recursos dictan tu capacidad de actuar. Este es tu punto de quiebre: no tienes un problema de falta de recursos, tienes ausencia de agencia personal. Has olvidado que siempre hay ALGO que controlas.",
+                    
+                    paso3: "Para cada meta preguntate: '¿Que parte de esto SI controlo?' La regla 80/20: probablemente 80% de tu avance depende de factores que SI controlas y 20% de factores externos. Ejemplo: 'No tengo tiempo para hacer ejercicio' - ¿Controlas despertarte 20 minutos antes? ¿Controlas apagar Netflix 30 minutos antes? ¿Controlas caminar durante llamadas telefonicas? La verdad: SI controlas mas de lo que admites. Pero es mas comodo culpar a las circunstancias que asumir responsabilidad.",
+                    
+                    paso4: "Para ti: NO hagas metas donde todo depende de factores externos, metas sin identificar tu zona de control, metas donde 'no puedo' es tu primera respuesta. SI haz: metas enfocadas en tu zona de control, metas donde defines 'que puedo hacer CON lo que tengo', metas donde practicas 'Y si si se puede, ¿como?'. Ejemplo: 'Con los 30 minutos que SI tengo, voy a moverme 4 veces esta semana' vs 'No tengo tiempo para hacer ejercicio porque trabajo mucho'.",
+                    
+                    paso5: "SISTEMA PERSONALIZADO: 1) Practica diaria de responsabilidad - cada vez que pienses 'no puedo porque...', pregunta: '¿Que SI puedo con lo que tengo?' 2) Regla del 'Y si si se puede' - cuando aparezca un obstaculo, pregunta: 'Y si SI pudiera hacer esto, ¿como seria?' 3) Identifica tu zona de control - en cada situacion: '¿Que de esto SI controlo?' Enfoca 100% energia ahi. 4) Elimina victimizacion del lenguaje - reemplaza 'no puedo' con 'elijo no' o 'todavia no he encontrado como'. 5) Celebra agencia personal - felicitate cada vez que actues a pesar de obstaculos.",
+                    
+                    paso6: "Fortalezas: tu capacidad de ver obstaculos reales te protege de ingenuidad, tu realismo sobre limitaciones te ayuda a planear mejor, tu consciencia de factores externos te hace considerar contexto. El objetivo no es ignorar obstaculos, es NO USARLOS como excusa: usa tu capacidad de ver obstaculos para planear como superarlos no como razon para no intentar, usa tu realismo sobre limitaciones para ser creativa con recursos no para rendirte, usa tu consciencia de contexto para adaptarte no para victimizarte. Tu zona de genio: lograr metas significativas cuando asumes responsabilidad de tu 80% controlable sin ignorar el 20% externo.",
+                    
+                    paso7: "Pregunta incomoda: ¿Cuanto de tu 'no puedo' es realidad y cuanto es comodidad? ¿Que ganancia secundaria obtienes de externalizar responsabilidad? (pista: evitas riesgo, evitas fracaso, evitas esfuerzo). No puedes controlar todas las circunstancias externas. Puedes controlar tu respuesta a esas circunstancias y tu zona de accion dentro de ellas. La paradoja: la gente que mas logra no es la que tiene mejores circunstancias, es la que asume responsabilidad de su zona controlable sin importar las circunstancias. Tu estas esperando circunstancias perfectas que nunca llegan.",
+                    
+                    paso8: "Accion con agencia: 1) Identifica 1 meta que has estado postergando por 'circunstancias' (tiempo, dinero, etc). 2) Pregunta honestamente: '¿Que de esto SI controlo?' (probablemente mas de lo que admites). 3) Pregunta: 'Y si SI pudiera avanzar en esto CON lo que tengo, ¿que haria?' 4) Define 1 accion pequeña que puedes hacer HOY con tus recursos actuales. 5) Hazla sin esperar que cambien las circunstancias. Este es el reset. Demostrarle a tu cerebro que tienes mas agencia de la que admites."
+                }
+            };
+            
+            return contenidos[patron] || {
+                paso1: "Contenido no disponible",
+                paso2: "Contenido no disponible",
+                paso3: "Contenido no disponible",
+                paso4: "Contenido no disponible",
+                paso5: "Contenido no disponible",
+                paso6: "Contenido no disponible",
+                paso7: "Contenido no disponible",
+                paso8: "Contenido no disponible"
+            };
+        }
+
+        // ==============================================
+      
