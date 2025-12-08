@@ -523,7 +523,7 @@
         // CONFIGURACIÓN Y DATOS
         // ==============================================
 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykcmJ7RlTIB3SCKVZ22_LEPeFbepf0U6NZRcFMlEw8qaxhg69f_HqTvEXMKaU15n_y/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybj2ZH7FGpXAh5lXzWc7nNnJWpbPqZ5MkAqOPULBrCKFfDY0JVASbkSA3tsLEzeUMp/exec';
 
         let userName = '';
         let userEmail = '';
@@ -959,6 +959,112 @@
                 victima: "Sientes que las circunstancias externas (tiempo, dinero, otras personas) son las que te impiden avanzar. Has entregado tu poder a factores externos. El problema no es que no tengas recursos, es que has adoptado una mentalidad donde buscas razones de por qué no, en lugar de soluciones para cómo sí."
             };
             return descripciones[patron] || "";
+        }
+        function obtenerContenidoCompleto8Pasos(patron) {
+            // Contenido completo de 8 pasos por patrón
+            const contenidos = {
+                perfeccionista: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que tu búsqueda de perfección te paraliza? La perfección no existe, pero tu miedo al error sí. Este es tu primer paso: reconocer que la perfección es una ilusión que te está costando tu progreso.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre no es 'no saber hacer las cosas bien', es tener estándares imposibles que nadie puede cumplir. Cada vez que postergas porque 'no está perfecto', estás eligiendo la inacción sobre el progreso.",
+                    paso3: "REVISA: ¿De dónde vienen tus estándares imposibles? ¿Son realmente tuyos o los adoptaste para sentirte valiosa? La perfección no te hace más valiosa, te hace más paralizada.",
+                    paso4: "REPLANTEA: Define 'suficientemente bueno' para cada meta. No hagas metas perfectas, haz metas B+ donde el progreso importa más que la perfección. 80% hecho es mejor que 100% perfecto sin empezar.",
+                    paso5: "DISEÑA: Crea un sistema de 'hecho es mejor que perfecto'. Regla: si algo está 80% bien, lo publicas/envías/terminas. Practica la imperfección estratégica.",
+                    paso6: "FORTALEZAS: Tu atención al detalle es valiosa cuando la usas estratégicamente. Canalízala en momentos donde realmente importa, no en todo. Tu capacidad de ver errores es un regalo cuando no la usas contra ti misma.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas oportunidades has perdido por esperar el momento perfecto? El momento perfecto no existe. Cada día que esperas es un día que no avanzas.",
+                    paso8: "ACCIÓN INMEDIATA: Elige 1 cosa que has estado postergando porque 'no está perfecta'. Complétala al 80% y publícala/envíala HOY. Demuéstrale a tu cerebro que puedes sobrevivir a la imperfección."
+                },
+                dispersa: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que tu entusiasmo por lo nuevo te está dispersando? Tu problema no es falta de ideas, es exceso de inicio sin completar.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es confundir inicio con logro. La novedad te da dopamina, pero cuando baja la emoción, abandonas. No has aprendido a sostener compromiso más allá del entusiasmo inicial.",
+                    paso3: "REVISA: ¿Cuántas de tus metas son 'deseos emocionantes' vs 'prioridades reales'? TODO te parece interesante, pero no tienes claridad de qué es MÁS importante ahora.",
+                    paso4: "REPLANTEA: Define 'completo' ANTES de empezar cada proyecto. No hagas múltiples metas grandes, haz 1 meta prioritaria dividida en sprints de 4-6 semanas con variedad EN el proyecto.",
+                    paso5: "DISEÑA: REGLA DEL UNO - solo 1 proyecto activo por área. No puedes empezar nada nuevo hasta COMPLETAR algo actual. Sistema de tentaciones: ideas nuevas van a 'lista de espera', evalúas después de 72 horas.",
+                    paso6: "FORTALEZAS: Tu entusiasmo genuino es valioso cuando lo ENFOCAS. Tu capacidad de ver posibilidades es un regalo cuando la usas para profundizar en 1 cosa, no para saltar entre muchas.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántos proyectos has abandonado no porque 'no funcionaron' sino porque apareció algo más emocionante? No puedes controlar que aparezcan ideas nuevas. Puedes controlar si actúas en base a esas ideas.",
+                    paso8: "ACCIÓN INMEDIATA: Haz lista de TODO lo inacabado. Elige el más cercano a completarse. Define qué falta. Bloquea 2 horas esta semana y COMPLÉTALO. Celebra sin empezar algo nuevo."
+                },
+                complaciente: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que anteponer las necesidades de otras te está saboteando? Tu problema no es ser generosa, es perderte a ti misma en el proceso.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es creer que tu valor viene de ser útil a otras. Has condicionado tu autoestima a la aprobación externa. Decir SÍ cuando quieres decir NO no es generosidad, es auto-abandono.",
+                    paso3: "REVISA: ¿De dónde viene tu necesidad de complacer? ¿Realmente es generosidad o es miedo a decepcionar? Tus metas son tuyas o son lo que otras esperan de ti?",
+                    paso4: "REPLANTEA: Define tus 3 prioridades NO NEGOCIABLES. Todo lo demás es secundario. No hagas metas basadas en lo que otras esperan. Haz metas desde lo que TÚ necesitas.",
+                    paso5: "DISEÑA: Practica el NO estratégico. Empieza con NOs pequeños. 'No puedo ahora' sin justificar. Bloques protegidos para TUS prioridades ANTES de comprometer tiempo a otras.",
+                    paso6: "FORTALEZAS: Tu empatía es valiosa cuando no sacrificas tu bienestar. Tu capacidad de conexión es un regalo cuando la usas CON límites. Tu generosidad debe incluirte a ti misma.",
+                    paso7: "RESPONSABILIDAD: ¿Cuánto de tu agotamiento es auto-infligido por decir SÍ cuando querías decir NO? Cada vez que traicionas tus límites, te entrenas a no respetarte.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 compromiso que aceptaste pero que no sirve a tus prioridades. Practica decir: 'No voy a poder' sin justificar. Observa que sobrevives."
+                },
+                saboteadora: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que SABOTEAS tu propio éxito? No es que las cosas no funcionen, es que TÚ las destruyes cuando empiezan a funcionar.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es el miedo al éxito disfrazado de miedo al fracaso. Cuando las cosas van bien, creas crisis. El éxito te asusta más que el fracaso porque es desconocido.",
+                    paso3: "REVISA: ¿De dónde viene tu creencia de que 'no mereces el éxito'? ¿Qué historia te estás contando sobre por qué las cosas buenas no pueden durar?",
+                    paso4: "REPLANTEA: Define éxito en tus propios términos. No hagas metas donde el éxito te asusta más que el fracaso. Haz metas donde el éxito sea seguro y celebrable.",
+                    paso5: "DISEÑA: Crea un sistema de observación de patrones. Cuando las cosas van bien, PAUSA antes de actuar. Pregunta: '¿Estoy a punto de sabotear esto?' Si sí, NO actúes.",
+                    paso6: "FORTALEZAS: Tu capacidad de identificar problemas es valiosa cuando no la usas para crear problemas donde no los hay. Tu intensidad es un regalo cuando la diriges constructivamente.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas oportunidades has destruido justo cuando estaban funcionando? Cada vez que saboteas tu éxito, confirmas tu creencia de que no lo mereces.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 área donde las cosas están yendo bien. Comprométete a NO hacer nada que lo dañe durante 7 días. Observa el impulso de sabotear sin actuar en él."
+                },
+                dependiente: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que solo actúas cuando te sientes motivada? Tu problema no es falta de ganas, es dependencia de un estado emocional impredecible.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es haber condicionado tu acción a un 'permiso emocional'. Has entrenado tu cerebro a esperar motivación para actuar. La motivación es como el clima: impredecible.",
+                    paso3: "REVISA: ¿De dónde viene la creencia de que 'necesitas ganas' para actuar? ¿Son tus metas genuinamente tuyas o estás esperando sentir pasión por algo antes de comprometerte?",
+                    paso4: "REPLANTEA: No hagas metas que dependan de 'sentir ganas'. Haz metas con acciones mínimas viables que NO requieran motivación. Define CUÁNDO actúas, no esperes sentir ganas.",
+                    paso5: "DISEÑA: Acciones mínimas viables - 5 minutos es mejor que nada. Rutinas ancladas - ancla nuevas acciones a rutinas existentes. Regla del 2 minutos - comprométete a 2 minutos, usualmente continuarás.",
+                    paso6: "FORTALEZAS: Cuando SÍ estás motivada, tu energía es explosiva. Usa esa energía alta para construir sistemas que funcionen en energía baja. Tu conexión emocional con metas te da claridad.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas metas has abandonado porque 'perdiste las ganas'? La motivación SIGUE a la acción, no la precede. Cuando actúas sin ganas y ves resultados, la motivación regresa.",
+                    paso8: "ACCIÓN INMEDIATA: Elige 1 meta importante que has estado postergando. Define la acción MÁS pequeña (menos de 5 minutos). Hazla HOY sin esperar ganas. Registra: 'Actué sin motivación y sobreviví'."
+                },
+                castigadora: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que te castigas por cada error? Tu autocrítica no te hace mejor, te hace más pequeña.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es creer que el castigo te motivará. Pero el castigo solo genera vergüenza, y la vergüenza paraliza. Cada crítica es un ladrillo más en tu cárcel.",
+                    paso3: "REVISA: ¿De dónde viene tu voz crítica interna? ¿Es tu voz o es una voz que internalizaste? ¿Qué pasaría si te hablaras como le hablas a alguien que amas?",
+                    paso4: "REPLANTEA: No hagas metas con castigo por fallar. Haz metas con compasión en el proceso. Define qué harás cuando falles (porque fallarás), que no sea castigarte.",
+                    paso5: "DISEÑA: Practica la auto-compasión activa. Cuando falles: PAUSA, reconoce el dolor sin juzgar, recuerda que todas fallan, habla con amabilidad. Crea ritual de perdón.",
+                    paso6: "FORTALEZAS: Tu capacidad de auto-reflexión es valiosa cuando no la usas como arma contra ti. Tu deseo de mejorar es un regalo cuando nace de amor propio, no de auto-odio.",
+                    paso7: "RESPONSABILIDAD: ¿Cuánto de tu parálisis es por miedo a tu propia crítica? Cada vez que te castigas por fallar, entrenas tu cerebro a evitar intentar. El castigo no funciona.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 cosa por la que te has estado castigando. Escribe qué le dirías a tu mejor amiga si ella estuviera en tu situación. Ahora dítelo a ti misma."
+                },
+                sonadora: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que vives en tus sueños pero no en tu realidad? Soñar es hermoso, pero soñar sin actuar es escapismo.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es confundir visualización con acción. Sientes satisfacción al imaginar el futuro, y esa satisfacción te roba la urgencia de crearlo. El sueño se volvió sustituto de la realidad.",
+                    paso3: "REVISA: ¿De dónde viene tu preferencia por soñar sobre actuar? ¿Es miedo a que la realidad no sea tan linda como el sueño? Tus metas son fantasías o son planes accionables?",
+                    paso4: "REPLANTEA: No hagas metas vagas tipo 'algún día'. Haz metas con fecha específica y primer paso concreto HOY. Define 'siguiente acción física' para cada sueño.",
+                    paso5: "DISEÑA: Ritual de 'sueño a acción': escribe el sueño, define la brecha entre sueño y realidad, identifica 1 acción para cerrar esa brecha, hazla dentro de 24 horas. Repite.",
+                    paso6: "FORTALEZAS: Tu capacidad de visión es valiosa cuando la usas para inspirar acción, no para reemplazarla. Tu creatividad es un regalo cuando la materializas. Tu esperanza es poder cuando la anclas en realidad.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántos años llevas soñando lo mismo sin actuar? Cada día que sueñas sin actuar es un día que tu sueño se aleja. Los sueños sin acción son solo fantasías.",
+                    paso8: "ACCIÓN INMEDIATA: Elige tu sueño más importante. Identifica 1 acción FÍSICA que puedas hacer en las próximas 2 horas para moverte hacia él. No planifiques más, HAZLA."
+                },
+                adicta: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que solo eres productiva bajo presión? Vives en modo crisis constante y llamas a eso 'ser productiva'.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es NECESITAR presión para funcionar. Tu cerebro está adicto a dopamina + adrenalina de la crisis. Lo importante nunca será urgente hasta que sea demasiado tarde.",
+                    paso3: "REVISA: ¿De dónde viene tu adicción a lo urgente? ¿Es que solo te sientes productiva bajo presión? ¿Cuántas de tus urgencias son auto-creadas por procrastinar lo importante?",
+                    paso4: "REPLANTEA: Define tus 3 PRIORIDADES NO NEGOCIABLES. No hagas solo metas con deadline externo. Haz metas con bloques protegidos ANTES de que aparezcan urgencias. Crea urgencia artificial en lo importante.",
+                    paso5: "DISEÑA: Bloquea tiempo para prioridades ANTES de urgencias (primeras 2 horas del día). Practica decir NO a urgencias que no sirven a prioridades. Revisión semanal: '¿Serví mis prioridades o solo urgencias ajenas?'",
+                    paso6: "FORTALEZAS: Tu capacidad de actuar rápido bajo presión es valiosa en emergencias REALES. Tu energía explosiva es útil cuando la usas para avanzar en prioridades ANTES de que se vuelvan urgentes.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas de tus urgencias son auto-creadas? ¿Qué tanto de tu 'productividad' es en realidad agotamiento por vivir en crisis? Si dedicas tiempo a lo importante cuando NO es urgente, reduces crisis.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 cosa importante que has ignorado porque no es urgente todavía. Pregunta: '¿Qué pasaría si esto se vuelve urgente?' Define 1 acción HOY para avanzar ANTES de que sea crisis."
+                },
+                victima: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que culpas circunstancias externas por no avanzar? Tu narrativa de víctima te protege del cambio pero también te mantiene atrapada.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es creer que las circunstancias controlan tu vida. Mientras culpes afuera, no cambias adentro. La victimización te da permiso para no actuar.",
+                    paso3: "REVISA: ¿De dónde viene tu narrativa de impotencia? ¿Qué ganas al mantener que 'no puedes'? Ser víctima te protege de la responsabilidad, pero también del poder.",
+                    paso4: "REPLANTEA: No hagas metas que dependan de que circunstancias cambien. Haz metas desde lo que SÍ puedes controlar HOY. Pregunta: '¿Qué puedo hacer YO con lo que tengo?'",
+                    paso5: "DISEÑA: Practica la responsabilidad radical. Cada vez que digas 'no puedo porque...', pregunta: '¿Qué SÍ puedo hacer dentro de estas circunstancias?' Busca la ventana de control.",
+                    paso6: "FORTALEZAS: Tu capacidad de identificar obstáculos reales es valiosa cuando la usas para encontrar soluciones, no para justificar inacción. Tu resiliencia es un regalo cuando la activas.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas oportunidades has perdido esperando que las circunstancias cambien? Las circunstancias rara vez cambian solas. Tu poder está en actuar CON las circunstancias actuales.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 área donde te sientes víctima. Pregunta: '¿Qué 1% SÍ puedo controlar aquí?' Toma acción en ese 1% HOY. No esperes que todo cambie para empezar."
+                }
+            };
+            
+            return contenidos[patron] || {
+                paso1: "Contenido no disponible",
+                paso2: "Contenido no disponible",
+                paso3: "Contenido no disponible",
+                paso4: "Contenido no disponible",
+                paso5: "Contenido no disponible",
+                paso6: "Contenido no disponible",
+                paso7: "Contenido no disponible",
+                paso8: "Contenido no disponible"
+            };
         }
         
         function obtenerPrimerPaso(patron) {
