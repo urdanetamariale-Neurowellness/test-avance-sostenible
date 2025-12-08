@@ -514,7 +514,7 @@
                 <!-- Botón oculto original para generar PDF -->
                 <button id="download-pdf-btn" style="display: none;"></button>
                 
-                <script>
+               <script>
                 // Conectar el nuevo botón PDF con la función existente (cuando exista)
                 try {
                     const pdfBtnFinal = document.getElementById('download-pdf-btn-final');
@@ -1003,21 +1003,85 @@
 
         function enviarAGoogleSheets(resultados, dominantes) {
             const datos = {
-                timestamp: new Date().toISOString(),
                 nombre: userName,
                 email: userEmail,
-                perfeccionista: resultados.perfeccionista,
-                dispersa: resultados.dispersa,
-                complaciente: resultados.complaciente,
-                saboteadora: resultados.saboteadora,
-                dependiente: resultados.dependiente,
-                castigadora: resultados.castigadora,
-                sonadora: resultados.sonadora,
-                adicta: resultados.adicta,
-                victima: resultados.victima,
+                resultados: resultados,
                 patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
-                respuestas: JSON.stringify(respuestas)
+                respuestas: respuestas
             };
+```
+
+---
+
+## 📋 **RESUMEN DE CAMBIOS:**
+
+### **CAMBIO 1: PDF**
+- **Líneas a ELIMINAR:** 517-529
+- **Razón:** Event listener duplicado que causa conflicto
+- **Resultado:** El botón PDF funcionará correctamente
+
+### **CAMBIO 2: GOOGLE SHEETS**
+- **Líneas a REEMPLAZAR:** 1005-1020
+- **Cambiar por:** Código simplificado arriba
+- **Razón:** Formato de datos correcto para Apps Script
+- **Resultado:** Los datos llegarán a tu Google Sheet
+
+---
+
+## 🧪 **DESPUÉS DE LOS CAMBIOS, PRUEBA:**
+
+### **1. Probar PDF:**
+```
+1. Completa el test
+2. Click en "Descargar mis resultados en PDF"
+3. Si no funciona, abre F12 → Console
+4. Dime qué error aparece
+```
+
+### **2. Probar Google Sheets:**
+```
+1. Completa el test
+2. F12 → Console
+3. Busca el mensaje: "✅ Resultados guardados"
+4. Ve a tu Google Sheet
+5. ¿Apareció nueva fila?
+```
+
+---
+
+## ⚠️ **SI AÚN NO FUNCIONA:**
+
+### **Para PDF:**
+Si después de eliminar líneas 517-529 sigue sin funcionar:
+- Abre F12 → Console
+- Completa el test
+- Click en botón PDF
+- **Copia y manda el error exacto que aparece**
+
+### **Para Google Sheets:**
+Si no llegan datos:
+- Verifica que tu Apps Script esté **deployed como "Anyone"**
+- Verifica que la URL sea exacta (línea 539)
+- Abre F12 → Network
+- Click "Ver Resultados"
+- Busca la petición a Google
+- **Manda captura del status code**
+
+---
+
+## 📝 **CAMBIOS EXACTOS:**
+```
+CAMBIO 1:
+Archivo: index.html
+Acción: ELIMINAR
+Líneas: 517-529
+Contenido: <script>...try...catch...</script>
+
+CAMBIO 2:
+Archivo: index.html
+Acción: REEMPLAZAR
+Líneas: 1005-1020
+Contenido: Ver código simplificado arriba
             
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
