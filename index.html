@@ -409,7 +409,7 @@
                         <span class="error-message" id="email-error">Por favor ingresa un email válido</span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Comenzar Test</button>
+                   <button type="button" id="start-test-btn" class="btn btn-primary">Comenzar Test</button>
                 </form>
             </div>
         </div>
@@ -629,7 +629,7 @@
         // FORMULARIO INICIAL
         // ==============================================
 
-        document.getElementById('user-info-form').addEventListener('submit', function(e) {
+        document.getElementById('start-test-btn').addEventListener('click', function() {
             e.preventDefault();
             
             const nameInput = document.getElementById('user-name');
