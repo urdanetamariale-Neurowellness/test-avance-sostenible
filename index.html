@@ -551,9 +551,9 @@
     // ==============================================
     // CONFIGURACIÓN Y DATOS
     // ==============================================
-   const GOOGLE_SCRIPT_URL = '';
+   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGuM9-nqBNo8hdfGUxe86t08mMysEkBhVkCWCsaLCLAYqRNxsrmzRdbH4IXCBZ7rrn/exec';
 
-let userName = 'https://script.google.com/macros/s/AKfycbzGuM9-nqBNo8hdfGUxe86t08mMysEkBhVkCWCsaLCLAYqRNxsrmzRdbH4IXCBZ7rrn/exec';
+let userName = '';
 let userEmail = '';
 let testId = '';
 
@@ -1126,51 +1126,46 @@ function generarIdUnico() {
             };
         }
 
-        // ==============================================
+     // ==============================================
         // ENVIAR A GOOGLE SHEETS
         // ==============================================
 
-       function enviarAGoogleSheets(resultados, dominantes) {
-    // Generar ID único
-    const testId = generarIdUnico();
-    
-    const datos = {
-        testId: testId,  // ← NUEVO
-        nombre: userName,
-        email: userEmail,
-        resultados: resultados,
-        patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
-        respuestas: respuestas
-    };
-           // Generar ID único para el test
-        function generarIdUnico() {
-            const timestamp = Date.now().toString(36);
-            const random = Math.random().toString(36).substring(2, 8);
-            return (timestamp + random).toUpperCase();
-        }
+        function enviarAGoogleSheets(resultados, dominantes) {
+            // Generar ID único si no existe
+            if (!testId) {
+                testId = generarIdUnico();
+            }
+            
+            const datos = {
+                testId: testId,
+                nombre: userName,
+                email: userEmail,
+                resultados: resultados,
+                patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
+                respuestas: respuestas
+            };
             
             fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(datos)
-    }).then(() => {
-        console.log('✅ Resultados guardados en Google Sheets');
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            }).then(() => {
+                console.log('✅ Resultados guardados en Google Sheets');
+                localStorage.setItem('testId', datos.testId);
+                mostrarLinkRecuperacion(datos.testId);
+            }).catch(error => {
+                console.error('❌ Error al guardar:', error);
+            });
+        }
         
-        // Guardar ID en localStorage para mostrar link
-        localStorage.setItem('testId', datos.testId);
-        mostrarLinkRecuperacion(datos.testId);
-    }).catch(error => {
-        console.error('❌ Error al guardar:', error);
-    });
-           // Mostrar link de recuperación
-        function mostrarLinkRecuperacion(testId) {
+        // Mostrar link de recuperación
+        function mostrarLinkRecuperacion(id) {
             const urlBase = window.location.origin + window.location.pathname;
-            const linkRecuperacion = `${urlBase}?recuperar=${testId}`;
+            const linkRecuperacion = `${urlBase}?recuperar=${id}`;
             
-            // Crear mensaje con el link
             const mensajeDiv = document.createElement('div');
             mensajeDiv.style.cssText = `
                 position: fixed;
@@ -1244,7 +1239,6 @@ function generarIdUnico() {
             
             document.body.appendChild(mensajeDiv);
             
-            // Remover automáticamente después de 30 segundos
             setTimeout(() => {
                 if (mensajeDiv.parentElement) {
                     mensajeDiv.remove();
@@ -1257,7 +1251,6 @@ function generarIdUnico() {
             navigator.clipboard.writeText(link).then(() => {
                 alert('✅ Link copiado al portapapeles');
             }).catch(() => {
-                // Fallback para navegadores viejos
                 const input = document.createElement('textarea');
                 input.value = link;
                 document.body.appendChild(input);
@@ -1267,10 +1260,6 @@ function generarIdUnico() {
                 alert('✅ Link copiado al portapapeles');
             });
         }
-
-        // ==============================================
-        // GENERAR PDF COMPLETO
-        // ==============================================
 
         // ==============================================
               // GENERACIÓN DE PDF
