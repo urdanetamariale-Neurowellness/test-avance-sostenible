@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test de Avance Sostenible - Descubre qué dinámicas internas afectan tu progreso y cómo transformarlas">
+    <title>Test de Avance Sostenible | NeuroWellness Learning</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #F7F4F1;
+            color: #4A4D53;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0.75rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .header-gradient {
+            background: #14233A;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1.5rem 1.5rem 0 0;
+            text-align: center;
+        }
+        
+        .header-gradient h1 {
+            color: white !important;
+        }
+        
+        .header-gradient .subtitle {
+            color: #E9C8C8;
+        }
+
+        .logo-container {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .logo-container img {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .subtitle {
+            color: #E9C8C8;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1, h2 {
+            color: #14233A;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4A4D53;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #14233A;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #E6E2DE;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #9B6D80;
+        }
+
+        .form-group input.error {
+            border-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .question-card {
+            background: white;
+            border: 2px solid #E6E2DE;
+            border-radius: 1rem;
+            padding: 1.25rem 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .question-card:hover {
+            border-color: #9B6D80;
+            box-shadow: 0 4px 12px rgba(155, 109, 128, 0.1);
+        }
+        
+        .question-number {
+            background: #E9C8C8;
+            color: #14233A;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .question-text {
+            color: #14233A;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        
+        .scale-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .scale-option input[type="radio"] {
+            display: none;
+        }
+        
+        .scale-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 4rem;
+            padding: 0.5rem 0.35rem;
+            border: 2px solid #E6E2DE;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            background: white;
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        .scale-option input[type="radio"]:checked + label {
+            background: #9B6D80;
+            border-color: #9B6D80;
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(155, 109, 128, 0.3);
+        }
+        
+        .scale-option label:hover {
+            border-color: #9B6D80;
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: #9B6D80;
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #7d5666;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 109, 128, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-indicator {
+            background: #E6E2DE;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #9B6D80;
+            height: 100%;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .results.active {
+            display: block;
+        }
+        
+        .pattern-result {
+            background: #F7F4F1;
+            border-left: 4px solid #9B6D80;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pattern-name {
+            color: #14233A;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-score {
+            font-size: 1.5rem;
+            color: #9B6D80;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-level {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .dominant {
+            background: #E9C8C8;
+            border-left-color: #9B6D80;
+            border-left-width: 6px;
+        }
+        
+        .progress-bar {
+            background: #E6E2DE;
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill-result {
+            background: #9B6D80;
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .intro-hibrida {
+            background: #FFF9E6;
+            border: 2px solid #FFE082;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro-hibrida h3 {
+            color: #14233A;
+            margin-bottom: 1rem;
+        }
+
+        .intro-hibrida p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 2rem;
+            background: #E9C8C8;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .download-section h3 {
+            color: #14233A;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .scale-container {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.25rem;
+            }
+
+            .scale-option label {
+                font-size: 0.7rem;
+                padding: 0.35rem 0.2rem;
+                min-height: 3.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+            @keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-gradient">
+                <div class="logo-container">
+                    <!-- Aquí va tu logo -->
+                    <img src="https://i.postimg.cc/vHYbBxQz/Logo-Neuro-Wellness-Blanco-(2).png">
+                    <h1>Test de Avance Sostenible</h1>
+                </div>
+                <p class="subtitle">Descubre qué patrones están frenando tus metas año tras año</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE INICIO -->
+        <div id="start-section">
+            <div class="card">
+                <h2 style="color: #14233A; margin-bottom: 1rem;">Este es tu primer paso hacia la transformación</h2>
+                <p class="welcome-text">
+                    Antes de darte una guía personalizada, necesito entender cómo avanzas tú, dado que no todas nos 
+                    relacionamos igual con nuestras metas. Cómo organizas tu energía, tus prioridades y tus emociones 
+                    influye en la forma en que te acercas —o te alejas— de lo que quieres. Y eso es único en cada persona.
+                </p>
+                <p class="welcome-text">
+                    Este test te permitirá identificar tu patrón personal de funcionamiento, para que la guía que recibas 
+                    no sea genérica, sino realmente ajustada a tu forma de ser y a lo que necesitas hoy.
+                </p>
+                <p class="welcome-text" style="margin-bottom: 0.5rem;">
+                    <strong>Aquí descubrirás:</strong>
+                </p>
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem; line-height: 2;">
+                    <li>Qué dinámicas internas están interrumpiendo tu avance</li>
+                    <li>Por qué aparecen en tu vida (a nivel emocional, cognitivo y neurobiológico)</li>
+                    <li>Qué necesitas tú, de manera particular, para avanzar con menos fricción y más claridad</li>
+                </ul>
+                <p class="welcome-text">
+                    Con ese diagnóstico podré darte recomendaciones personalizadas y un plan que encaje con tu ritmo, 
+                    tu historia y tus recursos actuales.
+                </p>
+                <div style="background: #FFF9E6; border-left: 4px solid #FFE082; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                    <p style="margin: 0; line-height: 1.8;">
+                        <strong>⏱️ Duración aproximada: 10 minutos.</strong><br>
+                        Busca un espacio tranquilo, respira profundo y responde con honestidad. La claridad que obtengas 
+                        aquí será la base de un camino diseñado especialmente para ti.
+                    </p>
+                </div>
+
+                <form id="user-info-form">
+                    <div class="form-group">
+                        <label for="name">Tu nombre *</label>
+                        <input type="text" id="name" name="name" required placeholder="Escribe tu nombre">
+                        <span class="error-message" id="name-error" style="display: none;">Por favor ingresa tu nombre</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email: *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            placeholder="tu@email.com"
+                            style="margin-bottom: 0.75rem;"
+                        >
+                        <span class="error-message" id="email-error" style="display: none;">Por favor ingresa un email válido</span>
+                        
+                        <div style="
+                            padding: 0.75rem 1rem;
+                            background: linear-gradient(135deg, #FFF9E6 0%, #F5F0EB 100%);
+                            border-left: 4px solid #9B6D80;
+                            border-radius: 0.5rem;
+                            font-size: 0.875rem;
+                            line-height: 1.5;
+                            color: #3C3C3C;
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 0.5rem;
+                        ">
+                            <span style="font-size: 1.1rem; flex-shrink: 0;">📧</span>
+                            <span><strong style="color: #9B6D80;">Importante:</strong> A este correo recibirás tus resultados y el link permanente para consultarlos cuando quieras.</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="start-test-btn" class="btn btn-primary">Comenzar Test</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE TEST -->
+        <div id="test-section" style="display: none;">
+            <div class="card">
+                <div class="progress-indicator">
+                    <div class="progress-fill" id="progress-bar"></div>
+                </div>
+                <p style="text-align: center; margin-bottom: 1.5rem; color: #666;">
+                    <span id="progress-text">0 de 45 preguntas respondidas</span>
+                </p>
+            </div>
+
+            <div id="questions-container"></div>
+
+            <div class="card">
+                <button id="submit-btn" class="btn btn-primary" disabled>Ver Mis Resultados</button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE RESULTADOS -->
+        <div id="results-section" class="results">
+            <div class="card">
+                <h2 style="color: #14233A; margin-bottom: 1.5rem;">TUS PATRONES DE SABOTAJE</h2>
+                
+                <div id="intro-hibrida-container"></div>
+                
+                <div id="results-container"></div>
+
+                <!-- SECCIÓN FINAL ESTILO NEUROBIENESTAR -->
+                <div style="max-width: 800px; margin: 3rem auto; text-align: center;">
+                    
+                    <!-- CUADRO OSCURO CON MENSAJE -->
+                    <div style="background: linear-gradient(135deg, #14233A 0%, #1a3a52 100%); color: white; padding: 2.5rem 2rem; border-radius: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <h2 style="color: white; font-size: 1.5rem; margin-bottom: 1rem; font-weight: 600;">
+                            Has dado el primer paso más importante: conocer tu mapa
+                        </h2>
+                        
+                        <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; opacity: 0.95;">
+                            Tus resultados son el inicio, no el final.
+                        </p>
+                        
+                        <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; opacity: 0.95;">
+                            Porque tu cerebro funciona mejor cuando tiene dirección.
+                        </p>
+                        
+                        <p style="font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; opacity: 0.95;">
+                            Si quieres evitar volver a los mismos ciclos y transformar este insight en un plan real,<br>
+                            escríbeme y vemos juntas si este programa encaja contigo.
+                        </p>
+                        
+                        <!-- BOTONES -->
+                        <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: 0 auto;">
+                            <!-- Botón WhatsApp -->
+                            <a href="https://wa.me/34603777334?text=Hola%2C%20hice%20el%20Test%20de%20Avance%20Sostenible%20y%20quiero%20conocer%20m%C3%A1s%20sobre%20NeuroWellness%20Learning" 
+                               target="_blank"
+                               style="background: #9B6D80; color: white; padding: 1.2rem 2rem; border-radius: 0.75rem; text-decoration: none; font-weight: 600; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(155, 109, 128, 0.3);">
+                                <span style="font-size: 1.2rem;">💬</span>
+                                Quiero mi orientación personalizada (WhatsApp)
+                            </a>
+                            
+                            <!-- Botón PDF -->
+                            <button id="download-pdf-btn-final" 
+                                    style="background: #E9C8C8; color: #14233A; padding: 1.2rem 2rem; border-radius: 0.75rem; border: none; font-weight: 600; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(233, 200, 200, 0.3);">
+                                <span style="font-size: 1.2rem;">📄</span>
+                                Descargar mis resultados en PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- BANNER FIRMA -->
+                    <div style="margin: 2rem auto; max-width: 700px;">
+                        <img src="https://i.postimg.cc/L6rj1Mx7/Firma-Neuro-Wellness-Mariale-Urdaneta-(10).png" 
+                             alt="Mariale Urdaneta - NeuroWellness Learning"
+                             style="width: 100%; height: auto; display: block; border-radius: 1rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <!-- CRÉDITOS -->
+                    <div style="text-align: center; margin: 2rem auto; padding: 1.5rem; max-width: 600px;">
+                        <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.5rem;">
+                            © 2025 Maria Alejandra Urdaneta. Todos los derechos reservados.
+                        </p>
+                        <p style="color: #999; font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem;">
+                            Este test y su metodología son propiedad intelectual protegida.<br>
+                            Prohibida su reproducción total o parcial sin autorización expresa.
+                        </p>
+                        <p style="color: #888; font-size: 0.8rem; line-height: 1.6;">
+                            Basado en los 4 pilares de NeuroWellness Learning:<br>
+                            <strong>Neuro-Balance</strong> • <strong>Neuro-Focus</strong> • <strong>Neuro-Impulso</strong> • <strong>Neuro-Flow</strong>
+                        </p>
+                    </div>
+                    
+                    <!-- BOTÓN REINICIAR -->
+                    <button onclick="location.reload()" 
+                            style="background: #9B6D80; color: white; padding: 0.9rem 2.5rem; border-radius: 0.75rem; border: none; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(155, 109, 128, 0.2);">
+                        Reiniciar Test
+                    </button>
+                </div>
+                
+                <!-- Botón oculto original para generar PDF -->
+                <button id="download-pdf-btn" style="display: none;"></button>
+                
+            </div>
+        </div>
+    </div>
+
+<script>
+    // ==============================================
+    // CONFIGURACIÓN Y DATOS
+    // ==============================================
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGuM9-nqBNo8hdfGUxe86t08mMysEkBhVkCWCsaLCLAYqRNxsrmzRdbH4IXCBZ7rrn/exec';
+
+    let userName = '';
+    let userEmail = '';
+    let testId = '';
+
+    // Generar ID único
+    function generarIdUnico() {
+        const timestamp = Date.now().toString(36);
+        const random = Math.random().toString(36).substring(2, 8);
+        return (timestamp + random).toUpperCase();
+    }
+        
+    // Base de datos de preguntas (AJUSTADAS)
+        const preguntas = [
+            // PERFECCIONISTA PARALIZADA
+            { id: 1, patron: 'perfeccionista', tipo: 'suma', texto: 'Postergo empezar proyectos porque siento que necesito tenerlo todo claramente definido y sin errores antes de dar el primer paso' },
+            { id: 2, patron: 'perfeccionista', tipo: 'suma', texto: 'Cuando veo que un proyecto no va a quedar tan bien como lo imaginé, prefiero dejarlo a entregarlo imperfecto' },
+            { id: 3, patron: 'perfeccionista', tipo: 'suma', texto: 'Me paralizo imaginando el juicio negativo de otras personas si mi trabajo no es excelente' },
+            { id: 4, patron: 'perfeccionista', tipo: 'resta', texto: 'Empiezo proyectos aunque no estén perfectos, porque sé que puedo mejorar sobre la marcha' },
+            { id: 5, patron: 'perfeccionista', tipo: 'resta', texto: 'Me siento cómoda con resultados "suficientemente buenos" si cumplen con el propósito principal' },
+            
+            // DISPERSA ENTUSIASTA
+            { id: 6, patron: 'dispersa', tipo: 'suma', texto: 'Inicio múltiples metas al mismo tiempo pero termino sin completar ninguna' },
+            { id: 7, patron: 'dispersa', tipo: 'suma', texto: 'Me emociono intensamente con ideas nuevas y pierdo interés en las metas que ya había empezado' },
+            { id: 8, patron: 'dispersa', tipo: 'suma', texto: 'Cada pocas semanas cambio de meta porque encuentro algo que parece más interesante o prometedor' },
+            { id: 9, patron: 'dispersa', tipo: 'resta', texto: 'Cuando empiezo algo importante, me comprometo a terminarlo aunque aparezcan nuevas oportunidades tentadoras' },
+            { id: 10, patron: 'dispersa', tipo: 'resta', texto: 'Priorizo completar lo que inicié antes de embarcarme en proyectos nuevos' },
+            
+            // COMPLACIENTE AGOTADA
+            { id: 11, patron: 'complaciente', tipo: 'suma', texto: 'Establezco metas porque siento que "debería" cumplirlas, no porque realmente me entusiasmen' },
+            { id: 12, patron: 'complaciente', tipo: 'suma', texto: 'Mis metas están más conectadas con las expectativas de otras personas (familia, pareja, sociedad) que con mis propios deseos' },
+            { id: 13, patron: 'complaciente', tipo: 'suma', texto: 'Siento resentimiento o cansancio cuando trabajo en mis metas, como si fueran una obligación' },
+            { id: 14, patron: 'complaciente', tipo: 'resta', texto: 'Cuando me planteo una meta, siento emoción genuina y conexión profunda con lo que quiero lograr' },
+            { id: 15, patron: 'complaciente', tipo: 'resta', texto: 'Me siento energizada y motivada cuando trabajo en mis metas porque conectan con quien realmente soy' },
+            
+            // SABOTEADORA INVISIBLE
+            { id: 16, patron: 'saboteadora', tipo: 'suma', texto: 'Cuando estoy cerca de lograr algo importante, de repente hago cosas que sabotean mi progreso' },
+            { id: 17, patron: 'saboteadora', tipo: 'suma', texto: 'En el fondo siento que "no merezco" o "no soy la persona" para lograr ciertas cosas' },
+            { id: 18, patron: 'saboteadora', tipo: 'suma', texto: 'Me siento incómoda o ansiosa cuando las cosas van demasiado bien, como si algo malo fuera a pasar' },
+            { id: 19, patron: 'saboteadora', tipo: 'resta', texto: 'Creo genuinamente que merezco alcanzar las metas que me propongo' },
+            { id: 20, patron: 'saboteadora', tipo: 'resta', texto: 'Me siento cómoda celebrando mis logros sin minimizarlos o sentir que "fue suerte"' },
+            
+            // DEPENDIENTE DE MOTIVACIÓN
+            { id: 21, patron: 'dependiente', tipo: 'suma', texto: 'Solo trabajo en mis metas cuando me siento motivada o inspirada' },
+            { id: 22, patron: 'dependiente', tipo: 'suma', texto: 'Cuando pierdo el entusiasmo inicial por algo, dejo de hacerlo aunque sé que es importante' },
+            { id: 23, patron: 'dependiente', tipo: 'suma', texto: 'Creo que necesito sentir motivación antes de poder actuar en mis metas' },
+            { id: 24, patron: 'dependiente', tipo: 'resta', texto: 'Actúo en mis metas incluso cuando no tengo ganas, porque confío en mis sistemas y rutinas' },
+            { id: 25, patron: 'dependiente', tipo: 'resta', texto: 'Entiendo que la motivación viene DESPUÉS de empezar a actuar, no antes' },
+            
+            // CASTIGADORA INTERNA
+            { id: 26, patron: 'castigadora', tipo: 'suma', texto: 'Mi diálogo interno es muy duro y crítico conmigo cuando fallo o cometo errores' },
+            { id: 27, patron: 'castigadora', tipo: 'suma', texto: 'Si tengo un desliz o fallo un día, siento que "ya arruiné todo" y abandono completamente la meta' },
+            { id: 28, patron: 'castigadora', tipo: 'suma', texto: 'Me enfoco más en castigarme por lo que hice mal que en celebrar lo que hice bien' },
+            { id: 29, patron: 'castigadora', tipo: 'resta', texto: 'Cuando cometo un error, lo veo como una oportunidad de aprendizaje sin juzgarme duramente' },
+            { id: 30, patron: 'castigadora', tipo: 'resta', texto: 'Me hablo a mí misma con la misma compasión con la que le hablaría a una amiga que está pasando por algo difícil' },
+            
+            // SOÑADORA SIN RAÍCES
+            { id: 31, patron: 'sonadora', tipo: 'suma', texto: 'Tengo metas muy ambiciosas pero no tengo claridad de los pasos pequeños y concretos para llegar allí' },
+            { id: 32, patron: 'sonadora', tipo: 'suma', texto: 'Mis metas se sienten desconectadas de quien soy ahora o de las fortalezas que ya tengo' },
+            { id: 33, patron: 'sonadora', tipo: 'suma', texto: 'Espero un cambio radical o una transformación mágica en lugar de construir progreso gradual' },
+            { id: 34, patron: 'sonadora', tipo: 'resta', texto: 'Mis metas están construidas sobre mis fortalezas actuales y mi historia personal' },
+            { id: 35, patron: 'sonadora', tipo: 'resta', texto: 'Tengo claridad de los micro-pasos específicos que me llevarán desde donde estoy ahora hasta mi meta' },
+            
+            // ADICTA A LO URGENTE
+            { id: 36, patron: 'adicta', tipo: 'suma', texto: 'Solo logro ser productiva cuando hay presión, crisis o una fecha límite inminente' },
+            { id: 37, patron: 'adicta', tipo: 'suma', texto: 'Dejo que las urgencias del día a día desplacen constantemente el trabajo en mis metas importantes' },
+            { id: 38, patron: 'adicta', tipo: 'suma', texto: 'Vivo en modo reactivo (apagando incendios) en lugar de proactivo (construyendo hacia mis metas)' },
+            { id: 39, patron: 'adicta', tipo: 'resta', texto: 'Dedico tiempo consistente a lo importante aunque no sea urgente' },
+            { id: 40, patron: 'adicta', tipo: 'resta', texto: 'Tengo sistemas que protegen el tiempo para mis metas de las distracciones y urgencias del día' },
+            
+            // VÍCTIMA DE CIRCUNSTANCIAS
+            { id: 41, patron: 'victima', tipo: 'suma', texto: 'Cuando no avanzo en mis metas, tiendo a pensar que es por factores externos que no controlo (tiempo, dinero, otras personas)' },
+            { id: 42, patron: 'victima', tipo: 'suma', texto: 'Cuando enfrento obstáculos, mi primera reacción es encontrar razones de por qué no es posible, en lugar de buscar soluciones' },
+            { id: 43, patron: 'victima', tipo: 'suma', texto: 'Me repito a mí misma "así soy yo" o "no puedo cambiar" cuando enfrento dificultades' },
+            { id: 44, patron: 'victima', tipo: 'resta', texto: 'Asumo responsabilidad por crear soluciones incluso cuando las circunstancias no son ideales' },
+            { id: 45, patron: 'victima', tipo: 'resta', texto: 'Ante obstáculos, mi mentalidad es "¿cómo puedo hacer esto funcionar?" en lugar de "esto no se puede"' }
+        ];
+
+        const patronesInfo = {
+            perfeccionista: { nombre: 'La Perfeccionista Paralizada', emoji: '🎯' },
+            dispersa: { nombre: 'La Dispersa Entusiasta', emoji: '✨' },
+            complaciente: { nombre: 'La Complaciente Agotada', emoji: '😔' },
+            saboteadora: { nombre: 'La Saboteadora Invisible', emoji: '🎭' },
+            dependiente: { nombre: 'La Dependiente de Motivación', emoji: '⚡' },
+            castigadora: { nombre: 'La Castigadora Interna', emoji: '💔' },
+            sonadora: { nombre: 'La Soñadora Sin Raíces', emoji: '☁️' },
+            adicta: { nombre: 'La Adicta a lo Urgente', emoji: '🔥' },
+            victima: { nombre: 'La Víctima de Circunstancias', emoji: '⛓️' }
+        };
+
+        // Mezclar preguntas
+        const preguntasMezcladas = [...preguntas].sort(() => Math.random() - 0.5);
+        
+        // Respuestas del usuario
+        const respuestas = {};
+
+        // ==============================================
+        // FORMULARIO INICIAL
+        // ==============================================
+
+        document.getElementById('start-test-btn').addEventListener('click', function() {
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            
+            let isValid = true;
+            
+            // Validar nombre
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('error');
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            } else {
+                nameInput.classList.remove('error');
+                document.getElementById('name-error').style.display = 'none';
+            }
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                emailInput.classList.add('error');
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            } else {
+                emailInput.classList.remove('error');
+                document.getElementById('email-error').style.display = 'none';
+            }
+            
+            if (isValid) {
+                userName = nameInput.value.trim();
+                userEmail = emailInput.value.trim();
+                
+                document.getElementById('start-section').style.display = 'none';
+                document.getElementById('test-section').style.display = 'block';
+                window.scrollTo(0, 0);
+                
+                // Renderizar las preguntas
+                renderPreguntas();
+                updateProgress();
+            }
+        });
+
+        // ==============================================
+        // RENDERIZAR PREGUNTAS
+        // ==============================================
+
+        function renderPreguntas() {
+            const container = document.getElementById('questions-container');
+            
+            preguntasMezcladas.forEach((pregunta, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.innerHTML = `
+                    <div class="question-text">
+                        <div class="question-number">${index + 1}</div>
+                        <div style="flex: 1;">${pregunta.texto}</div>
+                    </div>
+                    <div class="scale-container">
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_1" name="q${pregunta.id}" value="0" required>
+                            <label for="q${pregunta.id}_1">Nunca</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_2" name="q${pregunta.id}" value="1" required>
+                            <label for="q${pregunta.id}_2">Casi nunca</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_3" name="q${pregunta.id}" value="2" required>
+                            <label for="q${pregunta.id}_3">A veces</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_4" name="q${pregunta.id}" value="3" required>
+                            <label for="q${pregunta.id}_4">Frecuentemente</label>
+                        </div>
+                        <div class="scale-option">
+                            <input type="radio" id="q${pregunta.id}_5" name="q${pregunta.id}" value="4" required>
+                            <label for="q${pregunta.id}_5">Siempre</label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(questionCard);
+            });
+
+            // Escuchar cambios en las respuestas
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const questionId = parseInt(e.target.name.replace('q', ''));
+                    respuestas[questionId] = parseInt(e.target.value);
+                    updateProgress();
+                    checkAllAnswered();
+                });
+            });
+        }
+
+        // ==============================================
+        // PROGRESO
+        // ==============================================
+
+        function updateProgress() {
+            const total = 45;
+            const answered = Object.keys(respuestas).length;
+            const percentage = (answered / total) * 100;
+            
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = `${answered} de ${total} preguntas respondidas`;
+        }
+
+        function checkAllAnswered() {
+            const allAnswered = Object.keys(respuestas).length === 45;
+            document.getElementById('submit-btn').disabled = !allAnswered;
+        }
+
+        // Botón de ver resultados
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            mostrarResultados();
+        });
+
+        // ==============================================
+        // CALCULAR RESULTADOS
+        // ==============================================
+
+        function calcularResultados() {
+            const puntosPorPatron = {
+                perfeccionista: 0,
+                dispersa: 0,
+                complaciente: 0,
+                saboteadora: 0,
+                dependiente: 0,
+                castigadora: 0,
+                sonadora: 0,
+                adicta: 0,
+                victima: 0
+            };
+
+            preguntas.forEach(pregunta => {
+                const respuesta = respuestas[pregunta.id];
+                let puntos;
+                
+                if (pregunta.tipo === 'suma') {
+                    puntos = respuesta;
+                } else {
+                    puntos = 4 - respuesta;
+                }
+                
+                puntosPorPatron[pregunta.patron] += puntos;
+            });
+
+            return puntosPorPatron;
+        }
+
+        // ==============================================
+        // SISTEMA DE ENSAMBLAJE DE INTROS HÍBRIDAS
+        // ==============================================
+
+        const DESCRIPCIONES_CORTAS = {
+            perfeccionista: "postergas empezar porque necesitas que todo esté perfecto antes de iniciar",
+            dispersa: "te emocionas intensamente con ideas nuevas pero pierdes interés cuando pasa la novedad",
+            complaciente: "estableces metas porque sientes que 'deberías' cumplirlas, más que por deseo auténtico",
+            saboteadora: "cuando estás cerca de lograr algo importante, inconscientemente haces cosas que sabotean tu progreso",
+            dependiente: "solo actúas cuando te sientes motivada o inspirada",
+            castigadora: "tu diálogo interno es muy duro y crítico contigo cuando fallas o cometes errores",
+            sonadora: "tienes metas ambiciosas pero sin claridad de los pasos pequeños y concretos para llegar ahí",
+            adicta: "eres productiva únicamente bajo presión o crisis inminente",
+            victima: "sientes que las circunstancias externas (tiempo, dinero, otras personas) son las que te impiden avanzar"
+        };
+
+        const DINAMICAS = {
+            "adicta-dependiente-dispersa": "ciclo de ráfagas intensas seguidas de colapsos",
+            "castigadora-perfeccionista": "ciclo vicioso de parálisis seguida de auto-castigo brutal",
+            "perfeccionista-saboteadora": "parálisis por miedo al juicio que termina en auto-sabotaje",
+            "complaciente-victima": "resentimiento profundo y externalización de responsabilidad",
+            "dependiente-dispersa": "inicias múltiples cosas cuando hay emoción, abandonas cuando baja la energía",
+            "adicta-dispersa": "ciclo de ráfagas intensas seguidas de colapsos"
+        };
+
+        const CONSECUENCIAS = {
+            "adicta-dependiente-dispersa": "Inicias múltiples proyectos en momentos de alta energía (novedad + urgencia), pero los abandonas cuando desaparece la presión o el entusiasmo inicial. Vives en extremos: todo o nada. Este ciclo te genera frustración acumulada y una sensación constante de no completar lo que empiezas.",
+            "castigadora-perfeccionista": "Te paralizas esperando perfección, y cuando intentas y fallas, te destruyes emocionalmente. El castigo interno refuerza tu miedo a intentar, creando un ciclo de inacción y auto-maltrato.",
+            "perfeccionista-saboteadora": "Cuando estás cerca de lanzar algo, tu perfeccionismo se intensifica como sabotaje inconsciente. Siempre encuentras 'una cosa más que arreglar' porque en el fondo tienes miedo de ser juzgada.",
+            "complaciente-victima": "Cumples expectativas de otras personas mientras sientes que 'no puedes' perseguir lo tuyo por circunstancias. El resentimiento se acumula porque vives la vida de otras sin agencia en la tuya.",
+            "dependiente-dispersa": "Te emocionas con ideas nuevas e inicias con energía explosiva, pero cuando baja la motivación (que siempre baja), abandonas. Acumulas proyectos sin terminar esperando que 'vuelvan las ganas'.",
+            "adicta-dispersa": "Inicias múltiples proyectos en momentos de alta energía y urgencia, pero los abandonas cuando desaparece la presión. Vives en extremos productivos seguidos de colapsos."
+        };
+
+        function generarIntroHibrida(patronesDominantes) {
+            if (patronesDominantes.length === 1) {
+                return null; // No hay intro híbrida para un solo patrón
+            }
+
+            const numPatrones = patronesDominantes.length;
+            const descripciones = patronesDominantes.map(p => DESCRIPCIONES_CORTAS[p]);
+            
+            const dynamicKey = patronesDominantes.sort().join('-');
+            let dinamica = DINAMICAS[dynamicKey] || "un sistema complejo de sabotaje";
+            let consecuencia = CONSECUENCIAS[dynamicKey];
+            
+            if (!consecuencia) {
+                consecuencia = "Esta combinación crea un bloqueo complejo donde cada patrón refuerza al otro, dificultando tu avance en las metas que te importan.";
+            }
+            
+            return `
+                <div class="intro-hibrida">
+                    <h3>Tu Mapa de Avance Personalizado</h3>
+                    <p><strong>Tus ${numPatrones} patrones dominantes crean ${dinamica}:</strong></p>
+                    <p>${descripciones.join(', ')}.</p>
+                    <p><strong>Resultado:</strong> ${consecuencia}</p>
+                </div>
+            `;
+        }
+
+        // ==============================================
+        // MOSTRAR RESULTADOS
+        // ==============================================
+
+        function mostrarResultados() {
+            const resultados = calcularResultados();
+            
+            // Ordenar patrones por puntuación
+            const patronesOrdenados = Object.entries(resultados)
+                .map(([patron, puntos]) => ({
+                    patron,
+                    puntos,
+                    porcentaje: (puntos / 20) * 100,
+                    info: patronesInfo[patron]
+                }))
+                .sort((a, b) => b.puntos - a.puntos);
+
+            // Identificar dominantes (≥10 puntos) - MÁXIMO 3
+            const dominantes = patronesOrdenados
+                .filter(p => p.puntos >= 10)
+                .slice(0, 3); // SOLO los 3 primeros
+
+            // Generar intro híbrida si hay múltiples dominantes
+            const introHibridaContainer = document.getElementById('intro-hibrida-container');
+            if (dominantes.length > 1) {
+                const patronesDominantesNombres = dominantes.map(d => d.patron);
+                const introHTML = generarIntroHibrida(patronesDominantesNombres);
+                if (introHTML) {
+                    introHibridaContainer.innerHTML = introHTML;
+                }
+            }
+
+            const container = document.getElementById('results-container');
+            container.innerHTML = '';
+
+            // Mostrar solo los patrones dominantes
+            if (dominantes.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; background: #FFF9E6; border-radius: 1rem;">
+                        <p style="font-size: 1.1rem; line-height: 1.8;">
+                            Tus resultados muestran que no tienes patrones dominantes marcados (todos están por debajo de 10 puntos). 
+                            Esto podría indicar que tus dificultades para cumplir metas tienen un origen diferente o que respondiste 
+                            con menos intensidad de la que experimentas. Te recomendamos reflexionar más profundamente sobre tus patrones 
+                            o repetir el test siendo más honesta con tus respuestas.
+                        </p>
+                    </div>
+                `;
+            } else {
+                dominantes.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'pattern-result dominant';
+                    
+                    let nivel;
+                    if (item.puntos >= 15) nivel = 'MUY ALTO - Este patrón te está limitando severamente';
+                    else if (item.puntos >= 10) nivel = 'ALTO - Este patrón es significativo en tu vida';
+                    
+                    card.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <div style="flex: 1;">
+                                <div class="pattern-name">${item.info.emoji} ${item.info.nombre}</div>
+                                <div class="pattern-score">${item.puntos}/20 puntos (${item.porcentaje.toFixed(0)}%)</div>
+                                <div class="pattern-level">${nivel}</div>
+                            </div>
+                            <div style="background: #9B6D80; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: bold; font-size: 0.9rem;">
+                                PATRÓN DOMINANTE #${index + 1}
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill-result" style="width: ${item.porcentaje}%"></div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: #F7F4F1; border-radius: 0.75rem;">
+                            <h3 style="color: #14233A; margin-bottom: 1rem;">Qué significa este patrón:</h3>
+                            <p style="line-height: 1.8; margin-bottom: 1rem;">
+                                ${obtenerDescripcionPatron(item.patron)}
+                            </p>
+                            
+                            <h3 style="color: #14233A; margin-bottom: 1rem; margin-top: 2rem;">Tu primer paso de transformación:</h3>
+                            <p style="line-height: 1.8; margin-bottom: 1rem;">
+                                ${obtenerPrimerPaso(item.patron)}
+                            </p>
+                            
+                            <div style="background: #FFF9E6; border-left: 4px solid #FFE082; padding: 1rem; border-radius: 0.5rem; margin-top: 1.5rem;">
+                                <p style="margin: 0; font-weight: 600; color: #14233A;">
+                                    Tu guía PDF incluye el camino completo de transformación con los 8 pasos detallados para cada uno de tus patrones dominantes.
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            // Enviar a Google Sheets
+            enviarAGoogleSheets(resultados, dominantes);
+
+            // Mostrar sección de resultados
+            document.getElementById('test-section').style.display = 'none';
+            document.getElementById('results-section').classList.add('active');
+            window.scrollTo(0, 0);
+            
+            // Conectar botón PDF cuando se muestran los resultados
+            setTimeout(function() {
+                const pdfBtnFinal = document.getElementById('download-pdf-btn-final');
+                if (pdfBtnFinal) {
+                    pdfBtnFinal.addEventListener('click', function() {
+                        document.getElementById('download-pdf-btn').click();
+                    });
+                }
+            }, 100);
+        }
+        
+        // Funciones para obtener descripciones
+        function obtenerDescripcionPatron(patron) {
+            const descripciones = {
+                perfeccionista: "Postergas empezar proyectos porque necesitas que todo esté perfecto antes de iniciar. El perfeccionismo no es exigirte excelencia, es usar la perfección como escudo contra el miedo al juicio. En el fondo, equiparas tu valor como persona con la calidad del resultado.",
+                
+                dispersa: "Te emocionas intensamente con ideas nuevas pero pierdes interés cuando pasa la novedad. El problema no es tener muchos intereses, sino confundir inicio con logro. Estás adicta al subidón de dopamina del comienzo, pero no has desarrollado la disciplina para completar.",
+                
+                complaciente: "Estableces metas porque sientes que 'deberías' cumplirlas, más que por deseo auténtico. Has perdido conexión con tus propios deseos y priorizas las expectativas de otras personas sobre las tuyas. El resentimiento acumulado es señal de que estás viviendo la vida de alguien más.",
+                
+                saboteadora: "Cuando estás cerca de lograr algo importante, inconscientemente haces cosas que sabotean tu progreso. Este patrón es el más inconsciente: una parte de ti tiene miedo del éxito porque tu identidad no incluye 'ser exitosa'. El éxito se percibe como amenaza.",
+                
+                dependiente: "Solo actúas cuando te sientes motivada o inspirada. Has condicionado tu acción a un estado emocional específico. El problema no es falta de motivación, es ausencia de sistemas que te sostengan cuando la motivación no está presente.",
+                
+                castigadora: "Tu diálogo interno es muy duro y crítico contigo cuando fallas o cometes errores. Este maltrato interno no te motiva, te paraliza y sabotea. Has equiparado tu valor con tu desempeño, y cuando hay error, tu valor colapsa.",
+                
+                sonadora: "Tienes metas ambiciosas pero sin claridad de los pasos pequeños y concretos para llegar ahí. Tus visiones están flotando sin raíces en tu presente. El problema no es tu capacidad de soñar, es la desconexión entre el sueño y el camino real desde donde estás.",
+                
+                adicta: "Eres productiva únicamente bajo presión o crisis inminente. Tu cerebro está adicto al cóctel de dopamina + adrenalina que viene con la urgencia. Has entrenado tu sistema a funcionar solo en emergencias, y lo importante nunca será urgente hasta que sea demasiado tarde.",
+                
+                victima: "Sientes que las circunstancias externas (tiempo, dinero, otras personas) son las que te impiden avanzar. Has entregado tu poder a factores externos. El problema no es que no tengas recursos, es que has adoptado una mentalidad donde buscas razones de por qué no, en lugar de soluciones para cómo sí."
+            };
+            return descripciones[patron] || "";
+        }
+        
+        function obtenerPrimerPaso(patron) {
+            const pasos = {
+                perfeccionista: "Define 'suficientemente bueno' ANTES de empezar cualquier proyecto. Escribe: '¿Qué características MÍNIMAS debe tener para cumplir su propósito?' Una vez alcanzado ese estándar, LANZAS. No perfeccionas más. Mantra: 'Hecho es mejor que perfecto'.",
+                
+                dispersa: "Implementa la Regla del UNO: solo puedes tener 1 proyecto activo en cada área de tu vida. No puedes empezar nada nuevo hasta COMPLETAR algo actual. Define qué es 'completo' ANTES de empezar, para que tu cerebro no invente nuevas metas a mitad de camino.",
+                
+                complaciente: "Haz el ejercicio del test de autenticidad para cada meta: Si nadie nunca se enterara de que hiciste esto, ¿lo harías igual? ¿Te sientes expandida o contraída cuando piensas en esta meta? Solo metas que pasen este filtro son auténticamente tuyas.",
+                
+                saboteadora: "Identifica TUS patrones específicos de sabotaje. ¿Qué haces típicamente cuando estás cerca de lograr algo importante? (¿Te enfermas? ¿Creas drama? ¿Te distraes?) Crea un plan anti-sabotaje: 'Cuando esté al 80% de mi meta, mi cerebro intentará sabotearme con [X]. Cuando detecte esa señal, voy a [plan específico]'.",
+                
+                dependiente: "Diseña acciones mínimas viables que NO requieran motivación. Define la versión MÁS pequeña de tu meta que puedas hacer sin energía. Ejemplo: no '1 hora de ejercicio', sino '5 minutos de movimiento'. En días con motivación haces más, en días sin ella haces el mínimo. Pero SIEMPRE haces algo.",
+                
+                castigadora: "Practica auto-compasión activa. Identifica 1 cosa por la que te estás maltratando ahora. Pregunta: '¿Le diría esto a mi mejor amiga?' Si la respuesta es NO, no te lo digas a ti misma tampoco. Reescribe con compasión: '¿Qué le diría a alguien que amo en esta situación?'",
+                
+                sonadora: "Construye el puente desde tu presente. Para tu meta más grande, pregunta: ¿Qué de mi presente puede ser semilla de esto? ¿Qué fortaleza que ya tengo puedo usar? Define el paso MÁS pequeño que puedes dar HOY usando esa fortaleza, y hazlo en los próximos 30 minutos.",
+                
+                adicta: "Define tus 3 prioridades NO NEGOCIABLES para el próximo año. De todo lo que haces, pregunta: '¿Esto sirve a alguna de mis 3 prioridades?' Si NO → delega, elimina, o deja para después. Protege tiempo para tus prioridades ANTES de que empiecen las urgencias del día (idealmente primeras 2 horas de la mañana).",
+                
+                victima: "Haz el ejercicio del 'Y si sí se puede': Cuando aparezca un 'no se puede', pregunta: 'Y si sí pudiera hacer esto, ¿cómo sería?' Obliga a tu cerebro a buscar soluciones, no razones. Identifica tu zona de control: en cada situación, pregunta '¿Qué de esto SÍ controlo?' y enfócate 100% en eso."
+            };
+            return pasos[patron] || "";
+        }
+
+        function obtenerContenidoCompleto8Pasos(patron) {
+            const contenidos = {
+                perfeccionista: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que tu búsqueda de perfección te paraliza? La perfección no existe, pero tu miedo al error sí. Este es tu primer paso: reconocer que la perfección es una ilusión que te está costando tu progreso.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre no es 'no saber hacer las cosas bien', es tener estándares imposibles que nadie puede cumplir. Cada vez que postergas porque 'no está perfecto', estás eligiendo la inacción sobre el progreso.",
+                    paso3: "REVISA: ¿De dónde vienen tus estándares imposibles? ¿Son realmente tuyos o los adoptaste para sentirte valiosa? La perfección no te hace más valiosa, te hace más paralizada.",
+                    paso4: "REPLANTEA: Define 'suficientemente bueno' para cada meta. No hagas metas perfectas, haz metas B+ donde el progreso importa más que la perfección. 80% hecho es mejor que 100% perfecto sin empezar.",
+                    paso5: "DISEÑA: Crea un sistema de 'hecho es mejor que perfecto'. Regla: si algo está 80% bien, lo publicas/envías/terminas. Practica la imperfección estratégica.",
+                    paso6: "FORTALEZAS: Tu atención al detalle es valiosa cuando la usas estratégicamente. Canalízala en momentos donde realmente importa, no en todo. Tu capacidad de ver errores es un regalo cuando no la usas contra ti misma.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas oportunidades has perdido por esperar el momento perfecto? El momento perfecto no existe. Cada día que esperas es un día que no avanzas.",
+                    paso8: "ACCIÓN INMEDIATA: Elige 1 cosa que has estado postergando porque 'no está perfecta'. Complétala al 80% y publícala/envíala HOY. Demuéstrale a tu cerebro que puedes sobrevivir a la imperfección."
+                },
+                dispersa: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que tu entusiasmo por lo nuevo te está dispersando? Tu problema no es falta de ideas, es exceso de inicio sin completar.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es confundir inicio con logro. La novedad te da dopamina, pero cuando baja la emoción, abandonas. No has aprendido a sostener compromiso más allá del entusiasmo inicial.",
+                    paso3: "REVISA: ¿Cuántas de tus metas son 'deseos emocionantes' vs 'prioridades reales'? TODO te parece interesante, pero no tienes claridad de qué es MÁS importante ahora.",
+                    paso4: "REPLANTEA: Define 'completo' ANTES de empezar cada proyecto. No hagas múltiples metas grandes, haz 1 meta prioritaria dividida en sprints de 4-6 semanas con variedad EN el proyecto.",
+                    paso5: "DISEÑA: REGLA DEL UNO - solo 1 proyecto activo por área. No puedes empezar nada nuevo hasta COMPLETAR algo actual. Sistema de tentaciones: ideas nuevas van a 'lista de espera', evalúas después de 72 horas.",
+                    paso6: "FORTALEZAS: Tu entusiasmo genuino es valioso cuando lo ENFOCAS. Tu capacidad de ver posibilidades es un regalo cuando la usas para profundizar en 1 cosa, no para saltar entre muchas.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántos proyectos has abandonado no porque 'no funcionaron' sino porque apareció algo más emocionante? No puedes controlar que aparezcan ideas nuevas. Puedes controlar si actúas en base a esas ideas.",
+                    paso8: "ACCIÓN INMEDIATA: Haz lista de TODO lo inacabado. Elige el más cercano a completarse. Define qué falta. Bloquea 2 horas esta semana y COMPLÉTALO. Celebra sin empezar algo nuevo."
+                },
+                complaciente: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que anteponer las necesidades de otras te está saboteando? Tu problema no es ser generosa, es perderte a ti misma en el proceso.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es creer que tu valor viene de ser útil a otras. Has condicionado tu autoestima a la aprobación externa. Decir SÍ cuando quieres decir NO no es generosidad, es auto-abandono.",
+                    paso3: "REVISA: ¿De dónde viene tu necesidad de complacer? ¿Realmente es generosidad o es miedo a decepcionar? ¿Tus metas son tuyas o son lo que otras esperan de ti?",
+                    paso4: "REPLANTEA: Define tus 3 prioridades NO NEGOCIABLES. Todo lo demás es secundario. No hagas metas basadas en lo que otras esperan. Haz metas desde lo que TÚ necesitas.",
+                    paso5: "DISEÑA: Practica el NO estratégico. Empieza con NOs pequeños. 'No puedo ahora' sin justificar. Bloques protegidos para TUS prioridades ANTES de comprometer tiempo a otras.",
+                    paso6: "FORTALEZAS: Tu empatía es valiosa cuando no sacrificas tu bienestar. Tu capacidad de conexión es un regalo cuando la usas CON límites. Tu generosidad debe incluirte a ti misma.",
+                    paso7: "RESPONSABILIDAD: ¿Cuánto de tu agotamiento es auto-infligido por decir SÍ cuando querías decir NO? Cada vez que traicionas tus límites, te entrenas a no respetarte.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 compromiso que aceptaste pero que no sirve a tus prioridades. Practica decir: 'No voy a poder' sin justificar. Observa que sobrevives."
+                },
+                saboteadora: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que SABOTEAS tu propio éxito? No es que las cosas no funcionen, es que TÚ las destruyes cuando empiezan a funcionar.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es el miedo al éxito disfrazado de miedo al fracaso. Cuando las cosas van bien, creas crisis. El éxito te asusta más que el fracaso porque es desconocido.",
+                    paso3: "REVISA: ¿De dónde viene tu creencia de que 'no mereces el éxito'? ¿Qué historia te estás contando sobre por qué las cosas buenas no pueden durar?",
+                    paso4: "REPLANTEA: Define éxito en tus propios términos. No hagas metas donde el éxito te asusta más que el fracaso. Haz metas donde el éxito sea seguro y celebrable.",
+                    paso5: "DISEÑA: Crea un sistema de observación de patrones. Cuando las cosas van bien, PAUSA antes de actuar. Pregunta: '¿Estoy a punto de sabotear esto?' Si sí, NO actúes.",
+                    paso6: "FORTALEZAS: Tu capacidad de identificar problemas es valiosa cuando no la usas para crear problemas donde no los hay. Tu intensidad es un regalo cuando la diriges constructivamente.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas oportunidades has destruido justo cuando estaban funcionando? Cada vez que saboteas tu éxito, confirmas tu creencia de que no lo mereces.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 área donde las cosas están yendo bien. Comprométete a NO hacer nada que lo dañe durante 7 días. Observa el impulso de sabotear sin actuar en él."
+                },
+                dependiente: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que solo actúas cuando te sientes motivada? Tu problema no es falta de ganas, es dependencia de un estado emocional impredecible.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es haber condicionado tu acción a un 'permiso emocional'. Has entrenado tu cerebro a esperar motivación para actuar. La motivación es como el clima: impredecible.",
+                    paso3: "REVISA: ¿De dónde viene la creencia de que 'necesitas ganas' para actuar? ¿Son tus metas genuinamente tuyas o estás esperando sentir pasión por algo antes de comprometerte?",
+                    paso4: "REPLANTEA: No hagas metas que dependan de 'sentir ganas'. Haz metas con acciones mínimas viables que NO requieran motivación. Define CUÁNDO actúas, no esperes sentir ganas.",
+                    paso5: "DISEÑA: Acciones mínimas viables - 5 minutos es mejor que nada. Rutinas ancladas - ancla nuevas acciones a rutinas existentes. Regla del 2 minutos - comprométete a 2 minutos, usualmente continuarás.",
+                    paso6: "FORTALEZAS: Cuando SÍ estás motivada, tu energía es explosiva. Usa esa energía alta para construir sistemas que funcionen en energía baja. Tu conexión emocional con metas te da claridad.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas metas has abandonado porque 'perdiste las ganas'? La motivación SIGUE a la acción, no la precede. Cuando actúas sin ganas y ves resultados, la motivación regresa.",
+                    paso8: "ACCIÓN INMEDIATA: Elige 1 meta importante que has estado postergando. Define la acción MÁS pequeña (menos de 5 minutos). Hazla HOY sin esperar ganas. Registra: 'Actué sin motivación y sobreviví'."
+                },
+                castigadora: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que te castigas por cada error? Tu autocrítica no te hace mejor, te hace más pequeña.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es creer que el castigo te motivará. Pero el castigo solo genera vergüenza, y la vergüenza paraliza. Cada crítica es un ladrillo más en tu cárcel.",
+                    paso3: "REVISA: ¿De dónde viene tu voz crítica interna? ¿Es tu voz o es una voz que internalizaste? ¿Qué pasaría si te hablaras como le hablas a alguien que amas?",
+                    paso4: "REPLANTEA: No hagas metas con castigo por fallar. Haz metas con compasión en el proceso. Define qué harás cuando falles (porque fallarás), que no sea castigarte.",
+                    paso5: "DISEÑA: Practica la auto-compasión activa. Cuando falles: PAUSA, reconoce el dolor sin juzgar, recuerda que todas fallan, habla con amabilidad. Crea ritual de perdón.",
+                    paso6: "FORTALEZAS: Tu capacidad de auto-reflexión es valiosa cuando no la usas como arma contra ti. Tu deseo de mejorar es un regalo cuando nace de amor propio, no de auto-odio.",
+                    paso7: "RESPONSABILIDAD: ¿Cuánto de tu parálisis es por miedo a tu propia crítica? Cada vez que te castigas por fallar, entrenas tu cerebro a evitar intentar. El castigo no funciona.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 cosa por la que te has estado castigando. Escribe qué le dirías a tu mejor amiga si ella estuviera en tu situación. Ahora dítelo a ti misma."
+                },
+                sonadora: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que vives en tus sueños pero no en tu realidad? Soñar es hermoso, pero soñar sin actuar es escapismo.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es confundir visualización con acción. Sientes satisfacción al imaginar el futuro, y esa satisfacción te roba la urgencia de crearlo. El sueño se volvió sustituto de la realidad.",
+                    paso3: "REVISA: ¿De dónde viene tu preferencia por soñar sobre actuar? ¿Es miedo a que la realidad no sea tan linda como el sueño? ¿Tus metas son fantasías o son planes accionables?",
+                    paso4: "REPLANTEA: No hagas metas vagas tipo 'algún día'. Haz metas con fecha específica y primer paso concreto HOY. Define 'siguiente acción física' para cada sueño.",
+                    paso5: "DISEÑA: Ritual de 'sueño a acción': escribe el sueño, define la brecha entre sueño y realidad, identifica 1 acción para cerrar esa brecha, hazla dentro de 24 horas. Repite.",
+                    paso6: "FORTALEZAS: Tu capacidad de visión es valiosa cuando la usas para inspirar acción, no para reemplazarla. Tu creatividad es un regalo cuando la materializas. Tu esperanza es poder cuando la anclas en realidad.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántos años llevas soñando lo mismo sin actuar? Cada día que sueñas sin actuar es un día que tu sueño se aleja. Los sueños sin acción son solo fantasías.",
+                    paso8: "ACCIÓN INMEDIATA: Elige tu sueño más importante. Identifica 1 acción FÍSICA que puedas hacer en las próximas 2 horas para moverte hacia él. No planifiques más, HAZLA."
+                },
+                adicta: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que solo eres productiva bajo presión? Vives en modo crisis constante y llamas a eso 'ser productiva'.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es NECESITAR presión para funcionar. Tu cerebro está adicto a dopamina + adrenalina de la crisis. Lo importante nunca será urgente hasta que sea demasiado tarde.",
+                    paso3: "REVISA: ¿De dónde viene tu adicción a lo urgente? ¿Es que solo te sientes productiva bajo presión? ¿Cuántas de tus urgencias son auto-creadas por procrastinar lo importante?",
+                    paso4: "REPLANTEA: Define tus 3 PRIORIDADES NO NEGOCIABLES. No hagas solo metas con deadline externo. Haz metas con bloques protegidos ANTES de que aparezcan urgencias. Crea urgencia artificial en lo importante.",
+                    paso5: "DISEÑA: Bloquea tiempo para prioridades ANTES de urgencias (primeras 2 horas del día). Practica decir NO a urgencias que no sirven a prioridades. Revisión semanal: '¿Serví mis prioridades o solo urgencias ajenas?'",
+                    paso6: "FORTALEZAS: Tu capacidad de actuar rápido bajo presión es valiosa en emergencias REALES. Tu energía explosiva es útil cuando la usas para avanzar en prioridades ANTES de que se vuelvan urgentes.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas de tus urgencias son auto-creadas? ¿Qué tanto de tu 'productividad' es en realidad agotamiento por vivir en crisis? Si dedicas tiempo a lo importante cuando NO es urgente, reduces crisis.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 cosa importante que has ignorado porque no es urgente todavía. Pregunta: '¿Qué pasaría si esto se vuelve urgente?' Define 1 acción HOY para avanzar ANTES de que sea crisis."
+                },
+                victima: {
+                    paso1: "REFLEXIONA: ¿Qué emoción te despierta saber que culpas circunstancias externas por no avanzar? Tu narrativa de víctima te protege del cambio pero también te mantiene atrapada.",
+                    paso2: "IDENTIFICA: Tu punto de quiebre es creer que las circunstancias controlan tu vida. Mientras culpes afuera, no cambias adentro. La victimización te da permiso para no actuar.",
+                    paso3: "REVISA: ¿De dónde viene tu narrativa de impotencia? ¿Qué ganas al mantener que 'no puedes'? Ser víctima te protege de la responsabilidad, pero también del poder.",
+                    paso4: "REPLANTEA: No hagas metas que dependan de que circunstancias cambien. Haz metas desde lo que SÍ puedes controlar HOY. Pregunta: '¿Qué puedo hacer YO con lo que tengo?'",
+                    paso5: "DISEÑA: Practica la responsabilidad radical. Cada vez que digas 'no puedo porque...', pregunta: '¿Qué SÍ puedo hacer dentro de estas circunstancias?' Busca la ventana de control.",
+                    paso6: "FORTALEZAS: Tu capacidad de identificar obstáculos reales es valiosa cuando la usas para encontrar soluciones, no para justificar inacción. Tu resiliencia es un regalo cuando la activas.",
+                    paso7: "RESPONSABILIDAD: ¿Cuántas oportunidades has perdido esperando que las circunstancias cambien? Las circunstancias rara vez cambian solas. Tu poder está en actuar CON las circunstancias actuales.",
+                    paso8: "ACCIÓN INMEDIATA: Identifica 1 área donde te sientes víctima. Pregunta: '¿Qué 1% SÍ puedo controlar aquí?' Toma acción en ese 1% HOY. No esperes que todo cambie para empezar."
+                }
+            };
+            
+            return contenidos[patron] || {
+                paso1: "Contenido no disponible",
+                paso2: "Contenido no disponible",
+                paso3: "Contenido no disponible",
+                paso4: "Contenido no disponible",
+                paso5: "Contenido no disponible",
+                paso6: "Contenido no disponible",
+                paso7: "Contenido no disponible",
+                paso8: "Contenido no disponible"
+            };
+        }
+
+     // ==============================================
+        // ENVIAR A GOOGLE SHEETS
+        // ==============================================
+
+        function enviarAGoogleSheets(resultados, dominantes) {
+            // Generar ID único si no existe
+            if (!testId) {
+                testId = generarIdUnico();
+            }
+            
+            const datos = {
+                testId: testId,
+                nombre: userName,
+                email: userEmail,
+                resultados: resultados,
+                patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
+                respuestas: respuestas
+            };
+            
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            }).then(() => {
+                console.log('✅ Resultados guardados en Google Sheets');
+                localStorage.setItem('testId', datos.testId);
+                mostrarLinkRecuperacion(datos.testId);
+            }).catch(error => {
+                console.error('❌ Error al guardar:', error);
+            });
+        }
+        
+        // Mostrar link de recuperación
+        function mostrarLinkRecuperacion(id) {
+            const urlBase = window.location.origin + window.location.pathname;
+            const linkRecuperacion = `${urlBase}?recuperar=${id}`;
+            
+            const mensajeDiv = document.createElement('div');
+            mensajeDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #9B6D80;
+                color: white;
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                max-width: 400px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            mensajeDiv.innerHTML = `
+                <div style="margin-bottom: 0.75rem; font-weight: 600; font-size: 1rem;">
+                    ✅ ¡Resultados guardados!
+                </div>
+                <div style="margin-bottom: 0.75rem; font-size: 0.9rem; line-height: 1.5;">
+                    Puedes recuperar tus resultados en cualquier momento con este link:
+                </div>
+                <input 
+                    type="text" 
+                    value="${linkRecuperacion}" 
+                    readonly
+                    style="
+                        width: 100%;
+                        padding: 0.5rem;
+                        border: none;
+                        border-radius: 0.375rem;
+                        font-size: 0.85rem;
+                        margin-bottom: 0.5rem;
+                        background: rgba(255,255,255,0.9);
+                        color: #333;
+                    "
+                    onclick="this.select()"
+                >
+                <button 
+                    onclick="copiarLink('${linkRecuperacion}')"
+                    style="
+                        width: 100%;
+                        padding: 0.5rem;
+                        background: white;
+                        color: #9B6D80;
+                        border: none;
+                        border-radius: 0.375rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        margin-bottom: 0.5rem;
+                    "
+                >
+                    📋 Copiar Link
+                </button>
+                <button 
+                    onclick="this.parentElement.remove()"
+                    style="
+                        width: 100%;
+                        padding: 0.25rem;
+                        background: transparent;
+                        color: white;
+                        border: 1px solid white;
+                        border-radius: 0.375rem;
+                        cursor: pointer;
+                        font-size: 0.85rem;
+                    "
+                >
+                    Cerrar
+                </button>
+            `;
+            
+            document.body.appendChild(mensajeDiv);
+            
+            setTimeout(() => {
+                if (mensajeDiv.parentElement) {
+                    mensajeDiv.remove();
+                }
+            }, 30000);
+        }
+        
+        // Copiar link al portapapeles
+        function copiarLink(link) {
+            navigator.clipboard.writeText(link).then(() => {
+                alert('✅ Link copiado al portapapeles');
+            }).catch(() => {
+                const input = document.createElement('textarea');
+                input.value = link;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert('✅ Link copiado al portapapeles');
+            });
+        }
+
+        // ==============================================
+              // GENERACIÓN DE PDF
+        // ==============================================
+        
+        document.getElementById('download-pdf-btn').addEventListener('click', async function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Función auxiliar para agregar header y footer
+            function addHeaderFooter(doc, pageNumber) {
+                const pageHeight = doc.internal.pageSize.height;
+                const pageWidth = doc.internal.pageSize.width;
+                
+                // Logo en esquina (color)
+                const logoUrl = 'https://i.postimg.cc/cJ1y7PHz/Logo-Neuro-Wellness-Color-(1).png';
+                try {
+                    doc.addImage(logoUrl, 'PNG', pageWidth - 35, 10, 25, 18);
+                } catch(e) {
+                    console.log('Logo no cargado');
+                }
+                
+                // Footer
+                doc.setFontSize(8);
+                doc.setTextColor(150, 150, 150);
+                doc.text('© 2025 NeuroWellness Learning - Autoría y propiedad intelectual de Maria Alejandra Urdaneta. Todos los derechos reservados', pageWidth / 2, pageHeight - 10, { align: 'center' });
+            }
+            
+            // PORTADA
+            doc.setFillColor(20, 35, 58);
+            doc.rect(0, 0, 210, 297, 'F');
+            
+            // Logo blanco en portada
+            const logoBlanco = 'https://i.postimg.cc/vHYbBxQz/Logo-Neuro-Wellness-Blanco-(2).png';
+            try {
+                doc.addImage(logoBlanco, 'PNG', 170, 10, 30, 22);
+            } catch(e) {}
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(28);
+            doc.text('TU GUIA DE', 105, 80, { align: 'center' });
+            doc.text('TRANSFORMACION', 105, 95, { align: 'center' });
+            
+            doc.setFontSize(20);
+            doc.text('Test de Avance Sostenible', 105, 115, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.text(userName, 105, 150, { align: 'center' });
+            
+            const fecha = new Date().toLocaleDateString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            doc.text(fecha, 105, 165, { align: 'center' });
+            
+            // PÁGINA 2: RESUMEN
+            doc.addPage();
+            addHeaderFooter(doc, 2);
+            
+            const resultados = calcularResultados();
+            const patronesOrdenados = Object.entries(resultados)
+                .map(([patron, puntos]) => ({
+                    patron,
+                    puntos,
+                    info: patronesInfo[patron]
+                }))
+                .sort((a, b) => b.puntos - a.puntos);
+            
+            const dominantes = patronesOrdenados.filter(p => p.puntos >= 10).slice(0, 3);
+            
+            doc.setTextColor(20, 35, 58);
+            doc.setFontSize(18);
+            doc.text('TUS PATRONES DOMINANTES', 105, 30, { align: 'center' });
+            
+            let yPos = 50;
+            dominantes.forEach((item, index) => {
+                doc.setFontSize(14);
+                doc.setTextColor(155, 109, 128);
+                doc.text(`${index + 1}. ${item.info.nombre}`, 20, yPos);
+                doc.setFontSize(11);
+                doc.setTextColor(80, 80, 80);
+                doc.text(`${item.puntos}/20 puntos`, 20, yPos + 7);
+                yPos += 20;
+            });
+            
+           // PÁGINAS DE PATRONES CON 8 PASOS Y DISEÑO MEJORADO
+            for (const item of dominantes) {
+                doc.addPage();
+                addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                
+                let yPos = 30;
+                
+                // ========================================
+                // ENCABEZADO DEL PATRÓN CON CUADRO DE COLOR
+                // ========================================
+                doc.setFillColor(245, 240, 235); // Beige claro
+                doc.roundedRect(15, yPos - 5, 180, 28, 3, 3, 'F');
+                
+                doc.setFontSize(16);
+                doc.setTextColor(155, 109, 128); // Rosa
+                doc.text(item.info.emoji + ' ' + item.info.nombre.toUpperCase(), 20, yPos + 5);
+                
+                doc.setFontSize(11);
+                doc.setTextColor(80, 80, 80);
+                doc.text(`${item.puntos}/20 puntos (${item.porcentaje.toFixed(0)}%)`, 20, yPos + 12);
+                
+                let nivel = item.puntos >= 15 ? 'MUY ALTO - Este patrón te está limitando severamente' : 'ALTO - Este patrón es significativo en tu vida';
+                doc.setFontSize(9);
+                doc.setTextColor(155, 109, 128);
+                doc.text(nivel, 20, yPos + 18);
+                
+                yPos += 35;
+                
+                // ========================================
+                // SECCIÓN 1: ¿QUÉ SIGNIFICA ESTE PATRÓN?
+                // ========================================
+                if (yPos > 250) {
+                    doc.addPage();
+                    addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                    yPos = 30;
+                }
+                
+                doc.setFillColor(255, 249, 230); // Amarillo muy claro
+                doc.roundedRect(15, yPos, 180, 5, 2, 2, 'F'); // Barra superior
+                
+                doc.setFontSize(11);
+                doc.setTextColor(20, 35, 58);
+                doc.setFont(undefined, 'bold');
+                doc.text('¿Qué significa este patrón?', 20, yPos + 8);
+                doc.setFont(undefined, 'normal');
+                
+                yPos += 12;
+                
+                doc.setFillColor(255, 255, 255);
+                doc.rect(15, yPos, 180, 30, 'F');
+                doc.setDrawColor(255, 249, 230);
+                doc.setLineWidth(0.5);
+                doc.rect(15, yPos, 180, 30);
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const descripcion = obtenerDescripcionPatron(item.patron);
+                const linesDesc = doc.splitTextToSize(descripcion, 170);
+                doc.text(linesDesc, 20, yPos + 5);
+                
+                yPos += 35;
+                
+                // ========================================
+                // SECCIÓN 2: CÓMO SE MANIFIESTA EN TU VIDA
+                // ========================================
+                if (yPos > 240) {
+                    doc.addPage();
+                    addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                    yPos = 30;
+                }
+                
+                doc.setFillColor(247, 244, 241); // Gris muy claro
+                doc.roundedRect(15, yPos, 180, 5, 2, 2, 'F');
+                
+                doc.setFontSize(11);
+                doc.setTextColor(20, 35, 58);
+                doc.setFont(undefined, 'bold');
+                doc.text('Cómo se manifiesta en tu vida', 20, yPos + 8);
+                doc.setFont(undefined, 'normal');
+                
+                yPos += 12;
+                
+                doc.setFillColor(255, 255, 255);
+                doc.rect(15, yPos, 180, 30, 'F');
+                doc.setDrawColor(247, 244, 241);
+                doc.setLineWidth(0.5);
+                doc.rect(15, yPos, 180, 30);
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const manifestacion = obtenerDescripcionPatron(item.patron); // Usamos la misma por ahora
+                const linesMani = doc.splitTextToSize(manifestacion, 170);
+                doc.text(linesMani, 20, yPos + 5);
+                
+                yPos += 35;
+                
+                // ========================================
+                // SECCIÓN 3: TU PRIMER PASO
+                // ========================================
+                if (yPos > 230) {
+                    doc.addPage();
+                    addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                    yPos = 30;
+                }
+                
+                doc.setFillColor(245, 235, 250); // Lavanda muy claro
+                doc.roundedRect(15, yPos, 180, 5, 2, 2, 'F');
+                
+                doc.setFontSize(11);
+                doc.setTextColor(155, 109, 128);
+                doc.setFont(undefined, 'bold');
+                doc.text('Tu primer paso de transformación', 20, yPos + 8);
+                doc.setFont(undefined, 'normal');
+                
+                yPos += 12;
+                
+                doc.setFillColor(255, 255, 255);
+                doc.rect(15, yPos, 180, 35, 'F');
+                doc.setDrawColor(245, 235, 250);
+                doc.setLineWidth(0.5);
+                doc.rect(15, yPos, 180, 35);
+                
+                doc.setFontSize(9);
+                doc.setTextColor(60, 60, 60);
+                const primerPaso = obtenerPrimerPaso(item.patron);
+                const linesPrimer = doc.splitTextToSize(primerPaso, 170);
+                doc.text(linesPrimer, 20, yPos + 5);
+                
+                yPos += 40;
+                
+                // ========================================
+                // NUEVA PÁGINA PARA LOS 8 PASOS
+                // ========================================
+                doc.addPage();
+                addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                yPos = 30;
+                
+                // Título de la sección
+                doc.setFillColor(20, 35, 58); // Azul oscuro
+                doc.roundedRect(15, yPos, 180, 12, 2, 2, 'F');
+                
+                doc.setFontSize(12);
+                doc.setTextColor(255, 255, 255);
+                doc.setFont(undefined, 'bold');
+                doc.text('TU CAMINO COMPLETO DE TRANSFORMACIÓN', 105, yPos + 8, { align: 'center' });
+                doc.setFont(undefined, 'normal');
+                
+                yPos += 18;
+                
+                // ========================================
+                // LOS 8 PASOS DETALLADOS
+                // ========================================
+                const contenido8Pasos = obtenerContenidoCompleto8Pasos(item.patron);
+                
+                for (let i = 1; i <= 8; i++) {
+                    const paso = contenido8Pasos[`paso${i}`];
+                    
+                    // Verificar si necesitamos nueva página
+                    if (yPos > 240) {
+                        doc.addPage();
+                        addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                        yPos = 30;
+                    }
+                    
+                    // Cuadro de color alternado para cada paso
+                    const colorFondo = i % 2 === 0 ? [250, 250, 250] : [255, 255, 255];
+                    doc.setFillColor(...colorFondo);
+                    
+                    // Calcular altura necesaria
+                    doc.setFontSize(10);
+                    const linesTemp = doc.splitTextToSize(paso, 165);
+                    const alturaBox = (linesTemp.length * 4.5) + 12;
+                    
+                    // Si el cuadro no cabe, nueva página
+                    if (yPos + alturaBox > 270) {
+                        doc.addPage();
+                        addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                        yPos = 30;
+                    }
+                    
+                    // Dibujar cuadro del paso
+                    doc.roundedRect(15, yPos, 180, alturaBox, 2, 2, 'F');
+                    doc.setDrawColor(230, 230, 230);
+                    doc.setLineWidth(0.3);
+                    doc.roundedRect(15, yPos, 180, alturaBox, 2, 2, 'S');
+                    
+                    // Número del paso con círculo
+                    doc.setFillColor(155, 109, 128);
+                    doc.circle(25, yPos + 8, 5, 'F');
+                    doc.setFontSize(10);
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(i.toString(), 25, yPos + 10, { align: 'center' });
+                    
+                    // Texto del paso
+                    doc.setFont(undefined, 'normal');
+                    doc.setFontSize(9);
+                    doc.setTextColor(40, 40, 40);
+                    const lines = doc.splitTextToSize(paso, 165);
+                    doc.text(lines, 35, yPos + 6);
+                    
+                    yPos += alturaBox + 5;
+                }
+            }
+            
+            // PÁGINA FINAL
+            doc.addPage();
+            addHeaderFooter(doc, doc.internal.getNumberOfPages());
+            
+            yPos = 30;
+            doc.setFontSize(16);
+            doc.setTextColor(155, 109, 128);
+            doc.text('¿QUÉ SIGUE AHORA?', 105, yPos, { align: 'center' });
+            yPos += 15;
+            
+            // Intro
+            doc.setFontSize(10);
+            doc.setTextColor(60, 60, 60);
+            const intro = 'Si al ver tus resultados sentiste que quieres avanzar con más calma, claridad y dirección, el Programa NeuroWellness Learning puede ser tu siguiente paso natural. Allí trabajamos juntas en los 4 pilares que sostienen un avance real y sostenible:';
+            const linesIntro = doc.splitTextToSize(intro, 170);
+            doc.text(linesIntro, 20, yPos);
+            yPos += (linesIntro.length * 5) + 10;
+            
+            // 4 PILARES CON DESCRIPCIONES
+            const pilares = [
+                {
+                    nombre: 'Neuro-Balance',
+                    desc: 'Para que tu sistema nervioso deje de estar en modo supervivencia y puedas vivir desde más estabilidad, presencia y autocuidado - sin culpa.'
+                },
+                {
+                    nombre: 'Neuro-Focus',
+                    desc: 'Para ordenar tu mente, tus prioridades y tu energía, y que sepas exactamente hacia dónde moverte sin saturación mental.'
+                },
+                {
+                    nombre: 'Neuro-Impulso',
+                    desc: 'Para transformar la intención en acción mínima, amable y constante, dejando atrás la fuerza de voluntad como única estrategia.'
+                },
+                {
+                    nombre: 'Neuro-Flow',
+                    desc: 'Para mejorar tus relaciones, comunicar con más calma y reconstruir límites que te sostengan, no que te drenen.'
+                }
+            ];
+            
+            pilares.forEach(pilar => {
+                if (yPos > 240) {
+                    doc.addPage();
+                    addHeaderFooter(doc, doc.internal.getNumberOfPages());
+                    yPos = 30;
+                }
+                
+                doc.setFontSize(11);
+                doc.setTextColor(155, 109, 128);
+                doc.text('• ' + pilar.nombre + ':', 20, yPos);
+                yPos += 6;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(80, 80, 80);
+                const descLines = doc.splitTextToSize(pilar.desc, 165);
+                doc.text(descLines, 25, yPos);
+                yPos += (descLines.length * 4.5) + 6;
+            });
+            
+            yPos += 5;
+            
+            // CTA FINAL
+            doc.setFontSize(10);
+            doc.setTextColor(60, 60, 60);
+            const ctaTexto = 'Este no es un programa para "hacer más", sino para avanzar de una forma que te haga sentir bien, alineada y en control de tu vida.';
+            const linesCta = doc.splitTextToSize(ctaTexto, 170);
+            doc.text(linesCta, 20, yPos);
+            yPos += (linesCta.length * 5) + 10;
+            
+            const ctaTexto2 = 'Si quieres que revisemos juntas si este acompañamiento es lo que necesitas ahora, escríbeme por WhatsApp y te explico cómo sería tu ruta personalizada.';
+            const linesCta2 = doc.splitTextToSize(ctaTexto2, 170);
+            doc.text(linesCta2, 20, yPos);
+            yPos += (linesCta2.length * 5) + 12;
+            
+            // CONTACTO CON QR
+            doc.setFontSize(12);
+            doc.setTextColor(155, 109, 128);
+            doc.text('Contacto:', 20, yPos);
+            yPos += 8;
+            
+            // Código QR de WhatsApp
+            const qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent('https://wa.me/34603777334?text=Hola%2C%20hice%20el%20Test%20de%20Avance%20Sostenible%20y%20quiero%20conocer%20mas%20sobre%20el%20Programa%20NeuroWellness%20Learning');
+            try {
+                doc.addImage(qrCodeUrl, 'PNG', 20, yPos, 35, 35);
+            } catch(e) {
+                console.log('QR Code no cargado');
+            }
+            
+            // Texto al lado del QR
+            doc.setFontSize(10);
+            doc.setTextColor(60, 60, 60);
+            doc.text('Escanea el código QR', 60, yPos + 12);
+            doc.text('o escríbeme:', 60, yPos + 18);
+            doc.setFontSize(11);
+            doc.setTextColor(155, 109, 128);
+            doc.text('WhatsApp: +34 603 777 334', 60, yPos + 26);
+            
+            doc.save('Test-Avance-Sostenible-Resultados.pdf');
+        });
+    </script>
+</body>
+</html>
