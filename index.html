@@ -528,36 +528,24 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // ==============================================
-        // CONFIGURACIÓN Y DATOS
-        // ==============================================
+ <script>
+    // ==============================================
+    // CONFIGURACIÓN Y DATOS
+    // ==============================================
+   const GOOGLE_SCRIPT_URL = '';
 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBqwwiiCT16g6v_E9xRpUYkSrtSmWp4NCj5zDMYZ9aR_-8-NE-KWFGC8fZq7y0H7RH/exec';
+let userName = 'https://script.google.com/macros/s/AKfycbzGuM9-nqBNo8hdfGUxe86t08mMysEkBhVkCWCsaLCLAYqRNxsrmzRdbH4IXCBZ7rrn/exec';
+let userEmail = '';
+let testId = '';
 
-<label for="email">Email:</label>
-<input 
-    type="email" 
-    id="email" 
-    required
-    placeholder="tu@email.com"
->
-<p style="
-    font-size: 0.85rem;
-    color: #9B6D80;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-    line-height: 1.4;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-">
-    <span style="font-size: 1.1rem;">📧</span>
-    <span>
-        A este correo recibirás tus resultados y el link permanente para consultarlos cuando quieras
-    </span>
-</p>
-        // Base de datos de preguntas (AJUSTADAS)
+// Generar ID único
+function generarIdUnico() {
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substring(2, 8);
+    return (timestamp + random).toUpperCase();
+}
+        
+    // Base de datos de preguntas (AJUSTADAS)
         const preguntas = [
             // PERFECCIONISTA PARALIZADA
             { id: 1, patron: 'perfeccionista', tipo: 'suma', texto: 'Postergo empezar proyectos porque siento que necesito tenerlo todo claramente definido y sin errores antes de dar el primer paso' },
