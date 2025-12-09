@@ -551,18 +551,18 @@
     // ==============================================
     // CONFIGURACIÓN Y DATOS
     // ==============================================
-   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGuM9-nqBNo8hdfGUxe86t08mMysEkBhVkCWCsaLCLAYqRNxsrmzRdbH4IXCBZ7rrn/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGuM9-nqBNo8hdfGUxe86t08mMysEkBhVkCWCsaLCLAYqRNxsrmzRdbH4IXCBZ7rrn/exec';
 
-let userName = '';
-let userEmail = '';
-let testId = '';
+    let userName = '';
+    let userEmail = '';
+    let testId = '';
 
-// Generar ID único
-function generarIdUnico() {
-    const timestamp = Date.now().toString(36);
-    const random = Math.random().toString(36).substring(2, 8);
-    return (timestamp + random).toUpperCase();
-}
+    // Generar ID único
+    function generarIdUnico() {
+        const timestamp = Date.now().toString(36);
+        const random = Math.random().toString(36).substring(2, 8);
+        return (timestamp + random).toUpperCase();
+    }
         
     // Base de datos de preguntas (AJUSTADAS)
         const preguntas = [
