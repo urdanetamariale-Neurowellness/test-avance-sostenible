@@ -347,6 +347,16 @@
             h1 {
                 font-size: 1.8rem;
             }
+            @keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
         }
     </style>
 </head>
@@ -525,9 +535,28 @@
 
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyI1s3lt_LHjnV8pr759gYcbSTRCMtomRAsRe0uGtjJAjMPGhesGXYboam5a7wGyF5R/exec';
 
-        let userName = '';
-        let userEmail = '';
-
+<label for="email">Email:</label>
+<input 
+    type="email" 
+    id="email" 
+    required
+    placeholder="tu@email.com"
+>
+<p style="
+    font-size: 0.85rem;
+    color: #9B6D80;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+">
+    <span style="font-size: 1.1rem;">📧</span>
+    <span>
+        A este correo recibirás tus resultados y el link permanente para consultarlos cuando quieras
+    </span>
+</p>
         // Base de datos de preguntas (AJUSTADAS)
         const preguntas = [
             // PERFECCIONISTA PARALIZADA
@@ -1094,28 +1123,141 @@
         // ENVIAR A GOOGLE SHEETS
         // ==============================================
 
-        function enviarAGoogleSheets(resultados, dominantes) {
-            const datos = {
-                nombre: userName,
-                email: userEmail,
-                resultados: resultados,
-                patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
-                respuestas: respuestas
-            };
+       function enviarAGoogleSheets(resultados, dominantes) {
+    // Generar ID único
+    const testId = generarIdUnico();
+    
+    const datos = {
+        testId: testId,  // ← NUEVO
+        nombre: userName,
+        email: userEmail,
+        resultados: resultados,
+        patronesDominantes: dominantes.map(d => d.info.nombre).join(', '),
+        respuestas: respuestas
+    };
+           // Generar ID único para el test
+        function generarIdUnico() {
+            const timestamp = Date.now().toString(36);
+            const random = Math.random().toString(36).substring(2, 8);
+            return (timestamp + random).toUpperCase();
+        }
             
             fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(datos)
-            })
-            .then(() => {
-                console.log('✅ Resultados guardados en Google Sheets');
-            })
-            .catch((error) => {
-                console.error('❌ Error al guardar:', error);
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos)
+    }).then(() => {
+        console.log('✅ Resultados guardados en Google Sheets');
+        
+        // Guardar ID en localStorage para mostrar link
+        localStorage.setItem('testId', datos.testId);
+        mostrarLinkRecuperacion(datos.testId);
+    }).catch(error => {
+        console.error('❌ Error al guardar:', error);
+    });
+           // Mostrar link de recuperación
+        function mostrarLinkRecuperacion(testId) {
+            const urlBase = window.location.origin + window.location.pathname;
+            const linkRecuperacion = `${urlBase}?recuperar=${testId}`;
+            
+            // Crear mensaje con el link
+            const mensajeDiv = document.createElement('div');
+            mensajeDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #9B6D80;
+                color: white;
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                max-width: 400px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            mensajeDiv.innerHTML = `
+                <div style="margin-bottom: 0.75rem; font-weight: 600; font-size: 1rem;">
+                    ✅ ¡Resultados guardados!
+                </div>
+                <div style="margin-bottom: 0.75rem; font-size: 0.9rem; line-height: 1.5;">
+                    Puedes recuperar tus resultados en cualquier momento con este link:
+                </div>
+                <input 
+                    type="text" 
+                    value="${linkRecuperacion}" 
+                    readonly
+                    style="
+                        width: 100%;
+                        padding: 0.5rem;
+                        border: none;
+                        border-radius: 0.375rem;
+                        font-size: 0.85rem;
+                        margin-bottom: 0.5rem;
+                        background: rgba(255,255,255,0.9);
+                        color: #333;
+                    "
+                    onclick="this.select()"
+                >
+                <button 
+                    onclick="copiarLink('${linkRecuperacion}')"
+                    style="
+                        width: 100%;
+                        padding: 0.5rem;
+                        background: white;
+                        color: #9B6D80;
+                        border: none;
+                        border-radius: 0.375rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        margin-bottom: 0.5rem;
+                    "
+                >
+                    📋 Copiar Link
+                </button>
+                <button 
+                    onclick="this.parentElement.remove()"
+                    style="
+                        width: 100%;
+                        padding: 0.25rem;
+                        background: transparent;
+                        color: white;
+                        border: 1px solid white;
+                        border-radius: 0.375rem;
+                        cursor: pointer;
+                        font-size: 0.85rem;
+                    "
+                >
+                    Cerrar
+                </button>
+            `;
+            
+            document.body.appendChild(mensajeDiv);
+            
+            // Remover automáticamente después de 30 segundos
+            setTimeout(() => {
+                if (mensajeDiv.parentElement) {
+                    mensajeDiv.remove();
+                }
+            }, 30000);
+        }
+        
+        // Copiar link al portapapeles
+        function copiarLink(link) {
+            navigator.clipboard.writeText(link).then(() => {
+                alert('✅ Link copiado al portapapeles');
+            }).catch(() => {
+                // Fallback para navegadores viejos
+                const input = document.createElement('textarea');
+                input.value = link;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert('✅ Link copiado al portapapeles');
             });
         }
 
